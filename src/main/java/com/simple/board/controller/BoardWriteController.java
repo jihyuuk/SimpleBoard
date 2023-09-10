@@ -4,10 +4,10 @@ import com.simple.board.entity.Board;
 import com.simple.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor
@@ -16,7 +16,8 @@ public class BoardWriteController {
 
     private final BoardService boardService;
     @GetMapping
-    public String writeForm(){
+    public String writeForm(Model model){
+        model.addAttribute("board",new Board());
         return "/board/writeForm";
     }
 
