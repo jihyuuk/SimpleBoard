@@ -23,7 +23,7 @@ public class BoardWriteController {
     @PostMapping
     public String boardSave(Board board){
         boardService.save(board);
-        return "redirect:/";
+        return "redirect:/read/"+board.getId();
     }
 
 
