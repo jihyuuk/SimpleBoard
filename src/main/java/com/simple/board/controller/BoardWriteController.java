@@ -21,13 +21,9 @@ public class BoardWriteController {
     }
 
     @PostMapping
-    @ResponseBody
     public String boardSave(Board board){
         boardService.save(board);
-        return "저장완료!! <br>"
-                +"<br> ID : "+board.getId()
-                +"<br> Title : "+board.getTitle()
-                +"<br> content : "+board.getContent();
+        return "redirect:/";
     }
 
 
