@@ -7,6 +7,10 @@
         .container {
             max-width: 560px;
         }
+
+        textarea{
+            height: 250px;
+        }
     </style>
 </head>
 <body>
@@ -30,7 +34,7 @@
     </div>
     <div>
         <label for="boardContent">내용</label>
-        <input type="text" id="boardContent" name="content" class="form-control" value="내용입니다." th:value="${board.content}" readonly>
+        <textarea id="boardContent" name="content" class="form-control" th:text="${board.content}" readonly></textarea>
     </div>
 
     <hr class="my-4">
@@ -39,7 +43,7 @@
         <div class="col">
             <button class="w-100 btn btn-primary btn-lg"
                     onclick="location.href='#'"
-                    type="button">상품 수정</button>
+                    type="button">글 수정</button>
         </div>
         <div class="col">
             <button class="w-100 btn btn-secondary btn-lg"
