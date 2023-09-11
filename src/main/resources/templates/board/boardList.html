@@ -14,8 +14,8 @@
     <div class="row">
         <div class="col">
             <button class="btn btn-primary float-end"
-                    onclick="location.href='writeForm.html'"
-                    th:onclick="|location.href='@{/write}'|"
+                    onclick="location.href='boardCreate.html'"
+                    th:onclick="|location.href='@{/board/create}'|"
                     type="button">게시글 작성</button>
         </div>
     </div>
@@ -33,7 +33,7 @@
             <tbody>
             <tr th:each="board : ${boardList}">
                 <td th:text="${board.id}">1</td>
-                <td><a href="boardRead.html" th:href="@{/read/{id}(id=${board.id})}" th:text="${board.title}">제목입니다.</a></td>
+                <td><a href="boardRead.html" th:href="@{/board/read/{id}(id=${board.id})}" th:text="${board.title}">제목입니다.</a></td>
                 <td th:text="${board.content}">내용입니다.</td>
             </tr>
             </tbody>
@@ -44,19 +44,19 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
                 <li class="page-item" th:classappend="${hasPre}?_:'disabled'">
-                    <a class="page-link" th:href="@{/(page=${startPage-1})}" aria-label="Previous">
+                    <a class="page-link" th:href="@{/board(page=${startPage-1})}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
 
                 <th:block th:each="i : ${#numbers.sequence(startPage,endPage)}">
                     <li class="page-item" th:classappend="${i==nowPage}?'active':_" >
-                        <a class="page-link" th:href="@{/(page=${i})}" th:text="${i+1}">1</a>
+                        <a class="page-link" th:href="@{/board(page=${i})}" th:text="${i+1}">1</a>
                     </li>
                 </th:block>
 
                 <li class="page-item" th:classappend="${hasNext}?_:'disabled'">
-                    <a class="page-link" th:href="@{/(page=${startPage+pageRange})}" aria-label="Next">
+                    <a class="page-link" th:href="@{/board(page=${startPage+pageRange})}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>

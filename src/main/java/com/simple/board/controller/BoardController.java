@@ -11,23 +11,25 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/board")
 public class BoardController {
 
     //페이징 범위 ex) 1~5
     public static final int PAGE_RANGE = 5;
     private final BoardService boardService;
 
-    @GetMapping("/")
-    public String board(Model model, @RequestParam(value = "page",defaultValue = "0") int nowPage, @PageableDefault(sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
+    @GetMapping
+    public String boardList(Model model, @RequestParam(value = "page",defaultValue = "0") int nowPage, @PageableDefault(sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
 
         //페이지 음수시 첫 페이지로 리다이렉트
         if(nowPage < 0){
-            return "redirect:/";
+            return "redirect:/board";
         }
 
         //페이지별로 정보 찾아오기
@@ -36,7 +38,7 @@ public class BoardController {
 
         //페이지 초과시 마지막 페이지로 리다이렉트
         if(nowPage >= totalPages){
-            return "redirect:/?page="+(totalPages-1);
+            return "redirect:/board?page="+(totalPages-1);
         }
 
         //페이징
@@ -53,6 +55,6 @@ public class BoardController {
         model.addAttribute("hasPre",hasPre);
         model.addAttribute("hasNext",hasNext);
 
-        return "/board/board";
+        return "/board/boardList";
     }
 }

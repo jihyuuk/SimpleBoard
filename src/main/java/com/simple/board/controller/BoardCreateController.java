@@ -11,20 +11,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/write")
-public class BoardWriteController {
+@RequestMapping("/board/create")
+public class BoardCreateController {
 
     private final BoardService boardService;
     @GetMapping
     public String writeForm(Model model){
         model.addAttribute("board",new Board());
-        return "/board/writeForm";
+        return "/board/boardCreate";
     }
 
     @PostMapping
     public String boardSave(Board board){
         boardService.save(board);
-        return "redirect:/read/"+board.getId();
+        return "redirect:/board/read/"+board.getId();
     }
 
 

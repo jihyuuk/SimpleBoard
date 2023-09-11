@@ -34,7 +34,7 @@
     </div>
     <div>
         <label for="boardContent">내용</label>
-        <textarea id="boardContent" name="content" class="form-control" th:text="${board.content}" readonly></textarea>
+        <textarea id="boardContent" name="content" class="form-control" th:text="${board.content}" readonly>내용입니다</textarea>
     </div>
 
     <hr class="my-4">
@@ -47,8 +47,8 @@
         </div>
         <div class="col">
             <button class="w-100 btn btn-secondary btn-lg"
-                    onclick="location.href='board.html'"
-                    th:onclick="|location.href='@{/}'|"
+                    onclick="location.href='boardList.html'"
+                    th:onclick="|location.href='@{/board}'|"
                     type="button">목록으로</button>
         </div>
     </div>

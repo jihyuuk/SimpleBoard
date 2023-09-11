@@ -14,7 +14,7 @@ public class BoardReadController {
 
     private final BoardService boardService;
 
-    @GetMapping("/read/{id}")
+    @GetMapping("board/read/{id}")
     public String read(@PathVariable int id, Model model){
 
         Board findBoard = boardService.findById(id);
