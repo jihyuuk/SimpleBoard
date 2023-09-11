@@ -33,7 +33,7 @@
             <tbody>
             <tr th:each="board : ${boardList}">
                 <td th:text="${board.id}">1</td>
-                <td><a href="boardRead.html" th:href="@{/board/read/{id}(id=${board.id})}" th:text="${board.title}">제목입니다.</a></td>
+                <td><a href="boardRead.html" th:href="@{/board/read/{id}(id=${board.id},page=${nowPage})}" th:text="${board.title}">제목입니다.</a></td>
                 <td th:text="${board.content}">내용입니다.</td>
             </tr>
             </tbody>
