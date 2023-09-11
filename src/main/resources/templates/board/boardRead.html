@@ -42,7 +42,8 @@
     <div class="row">
         <div class="col">
             <button class="w-100 btn btn-primary btn-lg"
-                    onclick="location.href='#'"
+                    onclick="location.href='boardEdit.html'"
+                    th:onclick="|location.href='@{/board/edit/{id}(id=${board.id})}'|"
                     type="button">글 수정</button>
         </div>
         <div class="col">

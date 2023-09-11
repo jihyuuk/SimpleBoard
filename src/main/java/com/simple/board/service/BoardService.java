@@ -31,4 +31,9 @@ public class BoardService {
         return boardRepository.findAll(pageable);
     }
 
+    public void deleteById(int i){
+        boardRepository.deleteById(i);
+    }
+
+
 }
