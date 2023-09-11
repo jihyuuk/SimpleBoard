@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<main class="my-auto p-5" id="content">
+    <div class="text-center py-5">
+        <h1 class="display-1 text-primary">404</h1>
+        <h2>File not found</h2>
+        <p class="mt-4">주소가 잘 못 되었거나,<br>해당 페이지가 삭제, 변경 되었을 수 있습니다.</p>
+        <button type="button" class="btn btn-outline-secondary"
+                onclick="location.href='boardCreate.html'"
+                th:onclick="|location.href='@{/board}'|">
+            홈으로 돌아가기
+        </button>
+    </div>
+
+</main>
+</body>
+</html>
