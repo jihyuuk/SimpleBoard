@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.min.css}" href="../../static/css/bootstrap.min.css"  rel="stylesheet">
 </head>
 <body>
 
@@ -12,7 +12,9 @@
         <h1 class="display-1 text-danger">ERROR</h1>
         <h2>500번대 에러 발생</h2>
         <p class="mt-4">죄송합니다. 서버 오류가 발생했습니다.<br>빠른 시일 내에 복구하겠습니다.</p>
-        <button type="button" class="btn btn-outline-secondary">
+        <button type="button" class="btn btn-outline-secondary"
+                onclick="location.href='../board/boardList.html'"
+                th:onclick="|location.href='@{/board}'|">
             홈으로 돌아가기
         </button>
     </div>
