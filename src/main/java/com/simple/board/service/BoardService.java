@@ -3,6 +3,8 @@ package com.simple.board.service;
 import com.simple.board.entity.Board;
 import com.simple.board.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +25,10 @@ public class BoardService {
 
     public Board findById(int id){
         return boardRepository.findById(id).get();
+    }
+
+    public Page<Board> findByPage(Pageable pageable){
+        return boardRepository.findAll(pageable);
     }
 
 }

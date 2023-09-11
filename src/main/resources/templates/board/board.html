@@ -40,6 +40,30 @@
         </table>
     </div>
 
+    <!--페이징-->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:classappend="${hasPre}?_:'disabled'">
+                    <a class="page-link" th:href="@{/(page=${startPage-1})}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                <th:block th:each="i : ${#numbers.sequence(startPage,endPage)}">
+                    <li class="page-item" th:classappend="${i==nowPage}?'active':_" >
+                        <a class="page-link" th:href="@{/(page=${i})}" th:text="${i+1}">1</a>
+                    </li>
+                </th:block>
+
+                <li class="page-item" th:classappend="${hasNext}?_:'disabled'">
+                    <a class="page-link" th:href="@{/(page=${startPage+pageRange})}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+
 </div> <!-- /container -->
 
 </body>
