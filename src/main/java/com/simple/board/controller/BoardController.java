@@ -10,9 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
@@ -57,4 +55,52 @@ public class BoardController {
 
         return "/board/boardList";
     }
+
+    @GetMapping("/read/{id}")
+    public String read(@PathVariable int id,@RequestParam(defaultValue = "0") int page, Model model){
+
+        Board findBoard = boardService.findById(id);
+        model.addAttribute("board",findBoard);
+        model.addAttribute("page",page);
+
+        return "/board/boardRead";
+    }
+
+    @GetMapping("/create")
+    public String writeForm(Model model){
+        model.addAttribute("board",new Board());
+        return "/board/boardCreate";
+    }
+
+    @PostMapping("/create")
+    public String boardSave(Board board){
+        boardService.save(board);
+        return "redirect:/board/read/"+board.getId();
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editForm(@PathVariable Integer id, Model model){
+        Board board = boardService.findById(id);
+        model.addAttribute("board",board);
+        return "/board/boardEdit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String updateById(@PathVariable Integer id, String title, String content) {
+        Board board = boardService.findById(id);
+        board.setTitle(title);
+        board.setContent(content);
+        boardService.save(board);
+
+        return "redirect:/board/read/"+id;
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteById(@PathVariable Integer id){
+        boardService.deleteById(id);
+        return "redirect:/board";
+    }
+
+
+
 }
