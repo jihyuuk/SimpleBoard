@@ -7,10 +7,10 @@ assignees: jihyuuk
 
 ---
 
-##Description
+## :pencil: Description
 설명을 작성하세요.
 
-##To-do
-- [] todo
+## :white_check_mark: To-do
+- [ ] todo
 
-##ETC
+## :speech_balloon: ETC
