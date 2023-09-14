@@ -16,9 +16,10 @@ public class PageDTO {
 
     public PageDTO(int nowPage,int totalPages) {
         this.nowPage = nowPage;
-        startPage = nowPage / PAGE_RANGE * PAGE_RANGE;
-        endPage = Math.min(startPage + PAGE_RANGE, totalPages)-1;
-        hasPre = startPage != 0;
-        hasNext = endPage != totalPages-1;
+        startPage = (nowPage-1) / PAGE_RANGE * PAGE_RANGE + 1;
+        endPage = Math.min(startPage + PAGE_RANGE-1, totalPages);
+        hasPre = startPage > 1;
+        hasNext = endPage < totalPages;
     }
+
 }

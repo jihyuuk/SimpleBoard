@@ -4,7 +4,9 @@ import com.simple.board.entity.Board;
 import com.simple.board.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +30,9 @@ public class BoardService {
     }
 
     public Page<Board> findByPage(Pageable pageable){
-        return boardRepository.findAll(pageable);
+        int pageNumber = pageable.getPageNumber()-1;//보여줄 페이지
+        int pageSize = 10;//한 페이지 안에 보여줄 글 개수
+        return boardRepository.findAll(PageRequest.of(pageNumber,pageSize, Sort.Direction.DESC, "id"));
     }
 
     public void deleteById(int i){

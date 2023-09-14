@@ -23,12 +23,12 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping
-    public String boardList(@PageableDefault(sort = "id",direction = Sort.Direction.DESC) Pageable pageable, Model model){
+    public String boardList(@PageableDefault(page = 1) Pageable pageable, Model model){
 
         //해당 페이지의 게시글들 가져오기
         Page<Board> boardList = boardService.findByPage(pageable);
         //페이징 처리
-        PageDTO pageDTO = new PageDTO(boardList.getNumber(), boardList.getTotalPages());
+        PageDTO pageDTO = new PageDTO(pageable.getPageNumber(), boardList.getTotalPages());
 
         model.addAttribute("boardList",boardList);
         model.addAttribute("pageDTO",pageDTO);
@@ -36,7 +36,7 @@ public class BoardController {
     }
 
     @GetMapping("/read/{id}")
-    public String read(@PathVariable int id,@RequestParam(defaultValue = "0") int page, Model model){
+    public String read(@PathVariable int id,@RequestParam(defaultValue = "1") int page, Model model){
 
         Board findBoard = boardService.findById(id);
         model.addAttribute("board",findBoard);

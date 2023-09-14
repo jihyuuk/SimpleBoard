@@ -33,7 +33,7 @@
             <tbody>
             <tr th:each="board : ${boardList}">
                 <td th:text="${board.id}">1</td>
-                <td><a href="boardRead.html" th:href="@{/board/read/{id}(id=${board.id},page=${nowPage})}" th:text="${board.title}">제목입니다.</a></td>
+                <td><a href="boardRead.html" th:href="@{/board/read/{id}(id=${board.id},page=${pageDTO.nowPage})}" th:text="${board.title}">제목입니다.</a></td>
                 <td th:text="${board.content}">내용입니다.</td>
             </tr>
             </tbody>
@@ -51,7 +51,7 @@
 
                 <th:block th:each="i : ${#numbers.sequence(pageDTO.startPage,pageDTO.endPage)}">
                     <li class="page-item" th:classappend="${i==pageDTO.nowPage}?'active':_" >
-                        <a class="page-link" th:href="@{/board(page=${i})}" th:text="${i+1}">1</a>
+                        <a class="page-link" th:href="@{/board(page=${i})}" th:text="${i}">1</a>
                     </li>
                 </th:block>
 
