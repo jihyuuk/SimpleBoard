@@ -43,26 +43,25 @@
     <!--페이징-->
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
-                <li class="page-item" th:classappend="${hasPre}?_:'disabled'">
-                    <a class="page-link" th:href="@{/board(page=${startPage-1})}" aria-label="Previous">
+                <li class="page-item" th:classappend="${pageDTO.hasPre}?_:'disabled'">
+                    <a class="page-link" th:href="@{/board(page=${pageDTO.startPage-1})}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
 
-                <th:block th:each="i : ${#numbers.sequence(startPage,endPage)}">
-                    <li class="page-item" th:classappend="${i==nowPage}?'active':_" >
+                <th:block th:each="i : ${#numbers.sequence(pageDTO.startPage,pageDTO.endPage)}">
+                    <li class="page-item" th:classappend="${i==pageDTO.nowPage}?'active':_" >
                         <a class="page-link" th:href="@{/board(page=${i})}" th:text="${i+1}">1</a>
                     </li>
                 </th:block>
 
-                <li class="page-item" th:classappend="${hasNext}?_:'disabled'">
-                    <a class="page-link" th:href="@{/board(page=${startPage+pageRange})}" aria-label="Next">
+                <li class="page-item" th:classappend="${pageDTO.hasNext}?_:'disabled'">
+                    <a class="page-link" th:href="@{/board(page=${pageDTO.startPage+pageDTO.PAGE_RANGE})}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
             </ul>
         </nav>
-
 
 </div> <!-- /container -->
 
