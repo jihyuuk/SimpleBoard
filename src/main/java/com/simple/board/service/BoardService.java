@@ -1,6 +1,6 @@
 package com.simple.board.service;
 
-import com.simple.board.entity.Board;
+import com.simple.board.domain.Board;
 import com.simple.board.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -10,7 +10,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

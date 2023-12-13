@@ -1,4 +1,4 @@
-package com.simple.board.entity;
+package com.simple.board.domain;
 
 import lombok.Data;
 import lombok.Getter;
