@@ -5,6 +5,7 @@ import com.simple.board.model.PostNewDTO;
 import com.simple.board.model.PostUpdateDTO;
 import com.simple.board.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -42,9 +43,7 @@ public class BoardService {
     }
 
     public Page<Post> findByPage(Pageable pageable){
-        int pageNumber = pageable.getPageNumber()-1;//보여줄 페이지
-        int pageSize = 10;//한 페이지 안에 보여줄 글 개수
-        return boardRepository.findAll(PageRequest.of(pageNumber,pageSize, Sort.Direction.DESC, "id"));
+        return boardRepository.findAll(pageable);
     }
 
     public void deleteById(Long id){
