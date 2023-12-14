@@ -9,10 +9,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.PostConstruct;
+
+import static org.springframework.data.domain.Sort.Direction.DESC;
 
 @Slf4j
 @Controller
@@ -24,14 +29,20 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping
-    public String boardList(@PageableDefault(page = 1) Pageable pageable, Model model){
+    public String boardList(@PageableDefault(sort = "id",direction = DESC) Pageable pageable, Model model){
 
         //해당 페이지의 게시글들 가져오기
-        Page<Post> boardList = boardService.findByPage(pageable);
-        //페이징 처리
-        PageDTO pageDTO = new PageDTO(pageable.getPageNumber(), boardList.getTotalPages());
+        Page<Post> page = boardService.findByPage(pageable);
 
-        model.addAttribute("boardList",boardList);
+        //나중에 검증으로 빼기
+        //page=20000 처럼 content 없는 page 요청시 홈으로 redirect
+        if (!page.hasContent()){
+            return "redirect:/board?page="+page.getTotalPages();
+        }
+
+        //페이징 처리
+        PageDTO pageDTO = new PageDTO(boardService.findByPage(pageable));
+        model.addAttribute("pageList",page.getContent());
         model.addAttribute("pageDTO",pageDTO);
         return "/board/boardList";
     }

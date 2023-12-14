@@ -31,10 +31,10 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="board : ${boardList}">
-                <td th:text="${board.id}">1</td>
-                <td><a href="boardRead.html" th:href="@{/board/read/{id}(id=${board.id},page=${pageDTO.nowPage})}" th:text="${board.title}">제목입니다.</a></td>
-                <td th:text="${board.content}">내용입니다.</td>
+            <tr th:each="post : ${pageList}">
+                <td th:text="${post.id}">1</td>
+                <td><a href="boardRead.html" th:href="@{/board/read/{id}(id=${post.id},page=${pageDTO.nowPage})}" th:text="${post.title}">제목입니다.</a></td>
+                <td th:text="${post.content}">내용입니다.</td>
             </tr>
             </tbody>
         </table>
@@ -44,7 +44,7 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
                 <li class="page-item" th:classappend="${pageDTO.hasPre}?_:'disabled'">
-                    <a class="page-link" th:href="@{/board(page=${pageDTO.startPage-1})}" aria-label="Previous">
+                    <a class="page-link" th:href="@{/board(page=${pageDTO.nowPage-1})}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
@@ -56,7 +56,7 @@
                 </th:block>
 
                 <li class="page-item" th:classappend="${pageDTO.hasNext}?_:'disabled'">
-                    <a class="page-link" th:href="@{/board(page=${pageDTO.startPage+pageDTO.PAGE_RANGE})}" aria-label="Next">
+                    <a class="page-link" th:href="@{/board(page=${pageDTO.nowPage+1})}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
