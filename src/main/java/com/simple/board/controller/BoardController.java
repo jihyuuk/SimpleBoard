@@ -1,21 +1,19 @@
 package com.simple.board.controller;
 
 import com.simple.board.domain.Post;
-import com.simple.board.model.PageDTO;
-import com.simple.board.model.PostNewDTO;
-import com.simple.board.model.PostUpdateDTO;
+import com.simple.board.model.page.PageDTO;
+import com.simple.board.model.post.PostNewDTO;
+import com.simple.board.model.post.PostUpdateDTO;
 import com.simple.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
 
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
@@ -44,44 +42,45 @@ public class BoardController {
         PageDTO pageDTO = new PageDTO(page);
         model.addAttribute("pageList",page.getContent());
         model.addAttribute("pageDTO",pageDTO);
-        return "/board/boardList";
+        return "board/boardHome";
     }
 
-    @GetMapping("/read/{id}")
+    @GetMapping("/{id}")
     public String read(@PathVariable Long id,@RequestParam(defaultValue = "1") int page, Model model){
 
-        Post findBoard = boardService.findById(id);
-        model.addAttribute("board",findBoard);
+        Post post = boardService.findById(id);
+        model.addAttribute("post",post);
         model.addAttribute("page",page);
 
-        return "/board/boardRead";
+        return "post/viewPost";
     }
 
-    @GetMapping("/create")
+    @GetMapping("/new")
     public String writeForm(Model model){
-        model.addAttribute("board",new PostNewDTO());
-        return "/board/boardCreate";
+        model.addAttribute("postNewDTO",new PostNewDTO());
+        return "post/newPost";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/new")
     public String boardSave(PostNewDTO postNew){
         Long postId = boardService.save(postNew);
-        return "redirect:/board/read/"+postId;
+        return "redirect:/board/"+postId;
     }
 
     @GetMapping("/edit/{id}")
     public String editForm(@PathVariable Long id, Model model){
-        Post board = boardService.findById(id);
-        model.addAttribute("board",board);
-        return "/board/boardEdit";
+        Post findPost = boardService.findById(id);
+        PostUpdateDTO updateDTO = new PostUpdateDTO(findPost);
+
+        model.addAttribute("postUpdateDTO",updateDTO);
+        return "post/editPost";
     }
 
     @PostMapping("/edit/{id}")
-    public String updateById(@PathVariable Long id, String title, String content) {
+    public String updateById(PostUpdateDTO updateDTO) {
 
-        boardService.update(new PostUpdateDTO(id,title,content));
-
-        return "redirect:/board/read/"+id;
+        boardService.update(updateDTO);
+        return "redirect:/board/"+updateDTO.getId();
     }
 
     @GetMapping("/delete/{id}")

@@ -1,15 +1,12 @@
 package com.simple.board.service;
 
 import com.simple.board.domain.Post;
-import com.simple.board.model.PostNewDTO;
-import com.simple.board.model.PostUpdateDTO;
+import com.simple.board.model.post.PostNewDTO;
+import com.simple.board.model.post.PostUpdateDTO;
 import com.simple.board.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

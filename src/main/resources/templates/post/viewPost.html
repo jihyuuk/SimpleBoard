@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}" href="../../static/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+
+        textarea{
+            height: 250px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="py-5 text-center">
+        <h2>게시글 상세</h2>
+    </div>
+
+    <!-- 추가 -->
+    <h2 th:if="${param.status}" th:text="'저장 완료'"></h2>
+
+    <div>
+        <label for="postId">번호</label>
+        <input type="text" id="postId" name="id" class="form-control" value="1" th:value="${post.id}" readonly>
+    </div>
+    <div>
+        <label for="postTitle">제목</label>
+        <input type="text" id="postTitle" name="title" class="form-control" value="제목입니다." th:value="${post.title}" readonly>
+    </div>
+    <div>
+        <label for="postContent">내용</label>
+        <textarea id="postContent" name="content" class="form-control" th:text="${post.content}" readonly>내용입니다</textarea>
+    </div>
+
+    <hr class="my-4">
+
+    <div class="row">
+        <div class="col">
+            <button class="w-100 btn btn-primary btn-lg"
+                    onclick="location.href='editPost.html'"
+                    th:onclick="|location.href='@{/board/edit/{id}(id=${post.id})}'|"
+                    type="button">글 수정</button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    onclick="location.href='../board/boardHome.html'"
+                    th:onclick="|location.href='@{/board(page=${page})}'|"
+                    type="button">목록으로</button>
+        </div>
+    </div>
+
+</div> <!-- /container -->
+</body>
+</html>
