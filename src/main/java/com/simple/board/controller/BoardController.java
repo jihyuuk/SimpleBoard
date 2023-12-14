@@ -41,7 +41,7 @@ public class BoardController {
         }
 
         //페이징 처리
-        PageDTO pageDTO = new PageDTO(boardService.findByPage(pageable));
+        PageDTO pageDTO = new PageDTO(page);
         model.addAttribute("pageList",page.getContent());
         model.addAttribute("pageDTO",pageDTO);
         return "/board/boardList";
