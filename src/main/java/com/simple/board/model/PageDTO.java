@@ -1,6 +1,7 @@
 package com.simple.board.model;
 
 import lombok.Getter;
+import org.springframework.data.domain.Page;
 
 @Getter
 public class PageDTO {
@@ -14,12 +15,13 @@ public class PageDTO {
     private boolean hasPre;
     private boolean hasNext;
 
-    public PageDTO(int nowPage,int totalPages) {
-        this.nowPage = nowPage;
+    public PageDTO(Page page) {
+        nowPage = page.getNumber()+1;
         startPage = (nowPage-1) / PAGE_RANGE * PAGE_RANGE + 1;
-        endPage = Math.min(startPage + PAGE_RANGE-1, totalPages);
-        hasPre = startPage > 1;
-        hasNext = endPage < totalPages;
+        endPage = Math.min(startPage + PAGE_RANGE-1, page.getTotalPages());
+
+        hasPre = page.hasPrevious();
+        hasNext = page.hasNext();
     }
 
 }
