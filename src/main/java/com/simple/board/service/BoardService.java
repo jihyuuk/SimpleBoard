@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,10 +28,12 @@ public class BoardService {
         return post.getId();
     }
 
+    @Transactional
     public void update(PostUpdateDTO updateDTO){
         Optional<Post> find = boardRepository.findById(updateDTO.getId());
         //나중에 optional처리
         Post post = find.get();
+
         post.update(updateDTO);
     }
 
