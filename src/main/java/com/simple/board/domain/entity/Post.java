@@ -1,7 +1,7 @@
-package com.simple.board.domain;
+package com.simple.board.domain.entity;
 
-import com.simple.board.model.post.PostNewDTO;
-import com.simple.board.model.post.PostUpdateDTO;
+import com.simple.board.domain.dto.post.PostNewDTO;
+import com.simple.board.domain.dto.post.PostUpdateDTO;
 import lombok.*;
 
 import javax.persistence.*;

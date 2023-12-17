@@ -1,8 +1,9 @@
 package com.simple.board.service;
 
-import com.simple.board.domain.Post;
-import com.simple.board.model.post.PostNewDTO;
-import com.simple.board.model.post.PostUpdateDTO;
+import com.simple.board.domain.entity.Post;
+import com.simple.board.domain.dto.post.PostDTO;
+import com.simple.board.domain.dto.post.PostNewDTO;
+import com.simple.board.domain.dto.post.PostUpdateDTO;
 import com.simple.board.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -42,8 +43,9 @@ public class BoardService {
         return boardRepository.findById(id).get();
     }
 
-    public Page<Post> findByPage(Pageable pageable){
-        return boardRepository.findAll(pageable);
+    public Page<PostDTO> findByPage(Pageable pageable){
+        Page<Post> result = boardRepository.findAll(pageable);
+        return result.map(PostDTO::new);
     }
 
     public void deleteById(Long id){

@@ -1,4 +1,4 @@
-package com.simple.board.model;
+package com.simple.board.domain.dto.post;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

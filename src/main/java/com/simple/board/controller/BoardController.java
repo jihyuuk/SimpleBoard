@@ -1,9 +1,10 @@
 package com.simple.board.controller;
 
-import com.simple.board.domain.Post;
-import com.simple.board.model.page.PageDTO;
-import com.simple.board.model.post.PostNewDTO;
-import com.simple.board.model.post.PostUpdateDTO;
+import com.simple.board.domain.entity.Post;
+import com.simple.board.domain.dto.page.PageDTO;
+import com.simple.board.domain.dto.post.PostDTO;
+import com.simple.board.domain.dto.post.PostNewDTO;
+import com.simple.board.domain.dto.post.PostUpdateDTO;
 import com.simple.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +31,7 @@ public class BoardController {
     public String boardList(@PageableDefault(sort = "id",direction = DESC) Pageable pageable, Model model){
 
         //해당 페이지의 게시글들 가져오기
-        Page<Post> page = boardService.findByPage(pageable);
+        Page<PostDTO> page = boardService.findByPage(pageable);
 
         //나중에 검증으로 빼기
         //page=20000 처럼 content 없는 page 요청시 홈으로 redirect
@@ -49,7 +50,9 @@ public class BoardController {
     public String read(@PathVariable Long id,@RequestParam(defaultValue = "1") int page, Model model){
 
         Post post = boardService.findById(id);
-        model.addAttribute("post",post);
+        PostDTO postDTO = new PostDTO(post);
+
+        model.addAttribute("post",postDTO);
         model.addAttribute("page",page);
 
         return "post/viewPost";

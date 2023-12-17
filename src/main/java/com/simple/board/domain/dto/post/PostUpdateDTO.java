@@ -1,6 +1,6 @@
-package com.simple.board.model;
+package com.simple.board.domain.dto.post;
 
-import com.simple.board.domain.Post;
+import com.simple.board.domain.entity.Post;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
