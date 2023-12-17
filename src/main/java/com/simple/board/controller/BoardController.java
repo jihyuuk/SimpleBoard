@@ -34,9 +34,11 @@ public class BoardController {
         Page<PostDTO> page = boardService.findByPage(pageable);
 
         //나중에 검증으로 빼기
-        //page=20000 처럼 content 없는 page 요청시 홈으로 redirect
-        if (!page.hasContent()){
-            return "redirect:/board?page="+page.getTotalPages();
+        //totalPage 보다 큰 page요청의 경우 리다이렉트
+        int totalPage = Math.max(page.getTotalPages(), 1);
+        int requesetPage = pageable.getPageNumber();
+        if (requesetPage > totalPage){
+            return "redirect:/board?page="+totalPage;
         }
 
         //페이징 처리
