@@ -27,8 +27,8 @@
   <div class="row">
     <div class="col">
       <button class="btn btn-outline-danger float-end"
-              onclick="location.href='boardList.html'"
-              th:onclick="|location.href='@{/board/delete/{id}(id=${board.id})}'|"
+              onclick="location.href='../board/boardHome.html'"
+              th:onclick="|location.href='@{/board/delete/{id}(id=${postUpdateDTO.id})}'|"
               type="button">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
           <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"></path>
@@ -38,8 +38,10 @@
     </div>
   </div>
 
-  <form action="boardRead.html" th:action th:object="${board}" method="post">
-
+  <form action="viewPost.html" th:action th:object="${postUpdateDTO}" method="post">
+    <div>
+      <input type="hidden" id="post_id" th:field="*{id}" readonly>
+    </div>
     <div>
       <label for="title">제목</label>
       <input type="text" id="title" th:field="*{title}"
@@ -58,8 +60,8 @@
       </div>
       <div class="col">
         <button class="w-100 btn btn-secondary btn-lg"
-                onclick="location.href='boardRead.html'"
-                th:onclick="|location.href='@{/board/read/{id}(id=${board.id})}'|"
+                onclick="location.href='viewPost.html'"
+                th:onclick="|location.href='@{/board/{id}(id=${postUpdateDTO.id})}'|"
                 type="button">취소</button>
       </div>
     </div>

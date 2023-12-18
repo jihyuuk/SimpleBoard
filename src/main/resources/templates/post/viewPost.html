@@ -25,16 +25,16 @@
     <h2 th:if="${param.status}" th:text="'저장 완료'"></h2>
 
     <div>
-        <label for="boardId">번호</label>
-        <input type="text" id="boardId" name="id" class="form-control" value="1" th:value="${board.id}" readonly>
+        <label for="postId">번호</label>
+        <input type="text" id="postId" name="id" class="form-control" value="1" th:value="${post.id}" readonly>
     </div>
     <div>
-        <label for="boardTitle">제목</label>
-        <input type="text" id="boardTitle" name="title" class="form-control" value="제목입니다." th:value="${board.title}" readonly>
+        <label for="postTitle">제목</label>
+        <input type="text" id="postTitle" name="title" class="form-control" value="제목입니다." th:value="${post.title}" readonly>
     </div>
     <div>
-        <label for="boardContent">내용</label>
-        <textarea id="boardContent" name="content" class="form-control" th:text="${board.content}" readonly>내용입니다</textarea>
+        <label for="postContent">내용</label>
+        <textarea id="postContent" name="content" class="form-control" th:text="${post.content}" readonly>내용입니다</textarea>
     </div>
 
     <hr class="my-4">
@@ -42,13 +42,13 @@
     <div class="row">
         <div class="col">
             <button class="w-100 btn btn-primary btn-lg"
-                    onclick="location.href='boardEdit.html'"
-                    th:onclick="|location.href='@{/board/edit/{id}(id=${board.id})}'|"
+                    onclick="location.href='editPost.html'"
+                    th:onclick="|location.href='@{/board/edit/{id}(id=${post.id})}'|"
                     type="button">글 수정</button>
         </div>
         <div class="col">
             <button class="w-100 btn btn-secondary btn-lg"
-                    onclick="location.href='boardList.html'"
+                    onclick="location.href='../board/boardHome.html'"
                     th:onclick="|location.href='@{/board(page=${page})}'|"
                     type="button">목록으로</button>
         </div>

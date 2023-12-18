@@ -24,7 +24,7 @@
         <h2>게시글 작성하기</h2>
     </div>
 
-    <form action="boardRead.html" th:action th:object="${board}" method="post">
+    <form action="viewPost.html" th:action th:object="${postNewDTO}" method="post">
 
         <div>
             <label for="title">제목</label>
@@ -44,7 +44,7 @@
             </div>
             <div class="col">
                 <button class="w-100 btn btn-secondary btn-lg"
-                        onclick="location.href='boardList.html'"
+                        onclick="location.href='../board/boardHome.html'"
                         th:onclick="|location.href='@{/board}'|"
                         type="button">취소</button>
             </div>
