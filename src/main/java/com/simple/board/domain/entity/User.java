@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 
 import static com.simple.board.domain.entity.Role.ROLE_USER;
 
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
