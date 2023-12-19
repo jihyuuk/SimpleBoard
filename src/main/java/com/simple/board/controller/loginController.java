@@ -26,7 +26,7 @@ public class loginController {
 
     @PostMapping("/join")
     public String join(String email,String password, String name){
-        userService.join(email,bCryptPasswordEncoder.encode(password),password);
+        userService.join(email,bCryptPasswordEncoder.encode(password),name);
         return "redirect:/board";
     }
 }
