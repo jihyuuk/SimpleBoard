@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .ck-editor__editable {
+      height: 400px;
+    }
+  </style>
+</head>
+
+<body>
+    <!-- 메인 Content -->
+    <main class="col">
+      <!-- 본문 내용 -->
+      <section>
+        <div class="container">
+          <h2 class="mb-4">게시글 작성</h2>
+          <form method="post">
+            <!-- 카테고리 -->
+            <div class="input-group mb-3 shadow-sm">
+              <label class="input-group-text" for="inputGroupSelect">카테고리</label>
+              <select class="form-select" id="inputGroupSelect">
+                <option selected>커뮤니티</option>
+                <option value="1">Q&A</option>
+                <option value="2">공지사항</option>
+                <option value="3">익명게시판</option>
+              </select>
+            </div>
+
+            <input type="text" class="form-control mb-3 shadow-sm" placeholder="제목을 입력해주세요" aria-label="Username" aria-describedby="basic-addon1">
+
+            <textarea name="text" id="editor"></textarea>
+
+            <!-- 버튼 -->
+            <div class="text-end mt-4">
+              <a class="btn btn-outline-primary px-4" href="/board.html">취소</a>
+              <a class="btn btn-primary px-4" href="/static">저장하기</a>
+            </div>
+          </form>
+        </div>
+
+      </section>
+
+    </main>
+
+<script src="https://cdn.ckeditor.com/ckeditor5/40.2.0/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/40.2.0/classic/translations/ko.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  ClassicEditor.create(document.querySelector('#editor'), {
+    language: "ko",
+    ckfinder: { uploadUrl: '/image/upload' }
+  });
+</script>
+</body>
+</html>
