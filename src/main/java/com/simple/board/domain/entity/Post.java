@@ -1,33 +1,51 @@
-//package com.simple.board.domain.entity;
-//
-//import com.simple.board.domain.dto.post.PostNewDTO;
-//import com.simple.board.domain.dto.post.PostUpdateDTO;
-//import lombok.*;
-//
-//import javax.persistence.*;
-//
-//@Entity
-//@Getter
-//@NoArgsConstructor(access = AccessLevel.PROTECTED)
-//public class Post {
-//
-//    @Id
-//    @GeneratedValue
-//    @Column(name = "post_id")
-//    private Long id;
-//
-//    private String title;
-//
-//    private String content;
-//
-//    public Post(PostNewDTO postNew){
-//        title = postNew.getTitle();
-//        content = postNew.getContent();
-//    }
-//
-//    public void update(PostUpdateDTO updateDTO) {
-//        this.title = updateDTO.getTitle();
-//        this.content = updateDTO.getContent();
-//    }
-//
-//}
+package com.simple.board.domain.entity;
+
+import com.simple.board.domain.auditing.BaseTime;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Post extends BaseTime {
+
+    @Id @GeneratedValue
+    @Column(name = "post_id")
+    Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    User user;
+
+    String title;
+
+    @OneToOne
+    @JoinColumn(name = "content_id")
+    Content content;
+
+    int likes;
+    int hates;
+    int views;
+    boolean enabled;
+
+    @OneToMany(mappedBy = "post")
+    List<Reply> replies = new ArrayList<>();
+
+    public Post(Category category, User user, String title, Content content) {
+        this.category = category;
+        this.user = user;
+        this.title = title;
+        this.content = content;
+        enabled = true;
+    }
+
+}
