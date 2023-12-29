@@ -15,21 +15,21 @@ public class Reply extends BaseTime {
 
     @Id @GeneratedValue
     @Column(name = "reply_id")
-    Long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "post_id")
-    Post post;
+    private Post post;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    User user;
+    private User user;
 
-    String comment;
+    private String comment;
 
-    int likes;
-    int hates;
-    boolean enabled;
+    private int likes;
+    private int hates;
+    private boolean enabled;
 
     public Reply(Post post, User user, String comment) {
         this.post = post;

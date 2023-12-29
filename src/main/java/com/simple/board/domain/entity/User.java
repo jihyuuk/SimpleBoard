@@ -2,28 +2,28 @@ package com.simple.board.domain.entity;
 
 import com.simple.board.domain.auditing.BaseTime;
 import com.simple.board.domain.enums.ROLE;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 @Getter
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseTime {
 
     @Id @GeneratedValue
     @Column(name = "user_id")
-    Long id;
+    private Long id;
 
-    String email;
-    String password;
-    String picture;
-    String name;
+    private String email;
+    private String password;
+    private String picture;
+    private String name;
 
     @Enumerated(EnumType.STRING)
-    ROLE role;
-    boolean enabled;
+    private ROLE role;//[ROLE_ADMIN],[ROLE_MANAGER],[ROLE_USER]
+    private boolean enabled;
 
     public User(String email, String password, String name) {
         this.email = email;
@@ -34,4 +34,5 @@ public class User extends BaseTime {
         role = ROLE.ROLE_USER;
         enabled = true;
     }
+
 }

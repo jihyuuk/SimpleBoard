@@ -5,11 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
-
 import javax.persistence.*;
 import javax.transaction.Transactional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
@@ -34,12 +31,12 @@ class UserTest {
     User user;
 
     @BeforeEach
-    void user(){
-        user = new User("abc@gmail.com","123123","홍길동");
+    void user() {
+        user = new User("abc@gmail.com", "123123", "홍길동");
     }
 
     @Test
-    void userInit(){
+    void userInit() {
         //save 하기전
         //따라서 id, baseTime null임
 
@@ -59,7 +56,7 @@ class UserTest {
     }
 
     @Test
-    void save(){
+    void save() {
         //1.save()시에 id값 들어갔나 확인
         //2.영속성 초기화 후 findById로 확인하기
         em.persist(user);
@@ -73,8 +70,6 @@ class UserTest {
 
         //#2
         User findUser = em.find(User.class, userId);
-        assertThat(findUser.name).isEqualTo("홍길동");
-
+        assertThat(findUser.getName()).isEqualTo("홍길동");
     }
-
 }

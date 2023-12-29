@@ -15,13 +15,13 @@ public class Category {
 
     @Id @GeneratedValue
     @Column(name = "category_id")
-    Long id;
+    private Long id;
 
-    String name;
-    boolean enable;
+    private String name;
+    private boolean enable;
 
     @OneToMany(mappedBy = "category",fetch = FetchType.LAZY)
-    List<Post> posts = new ArrayList<>();
+    private List<Post> posts = new ArrayList<>();
 
     public Category(String name) {
         this.name = name;

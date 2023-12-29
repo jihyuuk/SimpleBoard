@@ -11,19 +11,19 @@ import java.util.List;
 @NoArgsConstructor
 public class PostDTO {
 
-    Long id;
-    String categoryName;
-    String userName;
-    String title;
-    String content;
+    private Long id;
+    private String categoryName;
+    private String userName;
+    private String title;
+    private String content;
     //ReplyDTO로 변경해야함
-    List<Reply> replies = new ArrayList<>();
+    private List<Reply> replies = new ArrayList<>();
 
-    int likes;
-    int hates;
-    int views;
+    private int likes;
+    private int hates;
+    private int views;
 
-    LocalDateTime lastModifiedDate;
+    private LocalDateTime lastModifiedDate;
 
     public PostDTO(Post post) {
         id = post.getId();

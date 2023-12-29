@@ -16,29 +16,29 @@ public class Post extends BaseTime {
 
     @Id @GeneratedValue
     @Column(name = "post_id")
-    Long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    Category category;
+    private Category category;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    User user;
+    private User user;
 
-    String title;
+    private String title;
 
     @OneToOne
     @JoinColumn(name = "content_id")
-    Content content;
+    private Content content;
 
-    int likes;
-    int hates;
-    int views;
-    boolean enabled;
+    private int likes;
+    private int hates;
+    private int views;
+    private boolean enabled;
 
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
-    List<Reply> replies = new ArrayList<>();
+    private List<Reply> replies = new ArrayList<>();
 
     public Post(Category category, User user, String title, Content content) {
         this.category = category;

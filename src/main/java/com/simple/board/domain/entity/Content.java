@@ -16,8 +16,8 @@ public class Content {
 
     @Id @GeneratedValue
     @Column(name = "content_id")
-    Long id;
-    String text;
+    private Long id;
+    private String text;
 
     public Content(String text) {
         this.text = text;
