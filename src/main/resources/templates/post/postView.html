@@ -10,7 +10,7 @@
                 </svg>
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">수정하기</a></li>
+                <li><a class="dropdown-item" th:href="@{/post/{id}/edit(id=${post.id})}">수정하기</a></li>
                 <li><a class="dropdown-item" href="#">삭제하기</a></li>
                 <li><a class="dropdown-item" href="#">신고하기</a></li>
             </ul>
@@ -59,11 +59,10 @@
             <h5 th:text="|댓글 ${post.replies.size()}|">댓글 24</h5>
         </div>
         <hr class="border-2">
-        <div class="input-group my-3">
-            <input type="text" class="form-control" placeholder="댓글 작성하기" aria-label="Recipient's username"
-                   aria-describedby="button-addon2">
-            <button class="btn btn-primary" type="button" id="button-addon2">작성</button>
-        </div>
+            <form method="post" th:action="@{/reply/{postId}(postId=${post.id})}" class="input-group my-3">
+                <input type="text" class="form-control" name="comment" placeholder="댓글 작성하기">
+                <button class="btn btn-primary" type="submit">작성</button>
+            </form>
 
         <th:block th:each="reply : ${post.replies}">
         <div class="border-top">
