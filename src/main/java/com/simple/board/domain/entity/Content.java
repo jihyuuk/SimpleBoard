@@ -22,4 +22,9 @@ public class Content {
     public Content(String text) {
         this.text = text;
     }
+
+    //수정테스트
+    public void setText(String text) {
+        this.text = text;
+    }
 }

@@ -23,10 +23,12 @@ public class InItDatas {
 
         Category category = new Category("커뮤니티");
         Category category2 = new Category("Q&A");
-        Category category3 = new Category("익명게시판");
+        Category category3 = new Category("공지사항");
+        Category category4 = new Category("BEST");
         em.persist(category);
         em.persist(category2);
         em.persist(category3);
+        em.persist(category4);
 
         Content content = new Content("모든 국민은 법률이 정하는 바에 의하여 선거권을 가진다. 선거에 관한 경비는 법률이 정하는 경우를 제외하고는 정당 또는 후보자에게 부담시킬 수 없다.");
         em.persist(content);

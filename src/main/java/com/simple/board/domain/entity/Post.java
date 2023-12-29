@@ -37,7 +37,7 @@ public class Post extends BaseTime {
     int views;
     boolean enabled;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     List<Reply> replies = new ArrayList<>();
 
     public Post(Category category, User user, String title, Content content) {
@@ -48,4 +48,12 @@ public class Post extends BaseTime {
         enabled = true;
     }
 
+    //수정테스트
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContent(Content content) {
+        this.content = content;
+    }
 }
