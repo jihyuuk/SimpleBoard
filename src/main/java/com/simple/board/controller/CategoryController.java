@@ -22,7 +22,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping("/")
-    public String home(Authentication authentication, Model model){
+    public String home(){
         //나중에 홈 꾸며야함
         return "home";
     }

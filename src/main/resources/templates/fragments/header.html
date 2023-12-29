@@ -15,7 +15,11 @@
       <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">홍길동님</h5>
+          <h5 sec:authorize="isAuthenticated()" class="offcanvas-title" id="offcanvasNavbarLabel" th:text="${#authentication.name}">홍길동님</h5>
+          <div>
+            <a sec:authorize="!isAuthenticated()" class="btn btn-primary me-2" href="/login">로그인</a>
+            <a sec:authorize="!isAuthenticated()" class="btn btn-outline-primary" href="/join">회원가입</a>
+          </div>
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
 
@@ -50,8 +54,12 @@
             </div>
           </form>
 
-          <a class="btn btn-primary me-2 d-none d-lg-block" href="/login">로그인</a>
-          <a class="btn btn-outline-primary d-none d-lg-block" href="/join">회원가입</a>
+          <!-- 로그인한 경우에만 사용자 이름 표시 -->
+          <span class="my-auto d-none d-lg-block" sec:authorize="isAuthenticated()" th:text="|${#authentication.name} 님|">홍길동님</span>
+
+          <!-- 로그인하지 않은 경우에만 로그인 링크 표시 -->
+          <a sec:authorize="!isAuthenticated()" class="btn btn-primary me-2 d-none d-lg-block" href="/login">로그인</a>
+          <a sec:authorize="!isAuthenticated()" class="btn btn-outline-primary d-none d-lg-block" href="/join">회원가입</a>
 
         </div>
       </div>
