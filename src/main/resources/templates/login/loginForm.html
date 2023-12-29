@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-body-tertiary">
+
+<div class="container d-flex align-items-center justify-content-center vh-100">
+  <main class="bg-body border rounded shadow p-4 text-center w-100" style="max-width: 400px;">
+    <form class="mb-4">
+      <a href="/static">
+        <img th:src="@{/logo/logo.png}" alt="Logo" width="330px" class="img-fluid mt-3 px-5">
+      </a>
+      <h4 class="my-4 fw-normal">로그인</h4>
+
+      <div class="form-floating mb-2">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Email address</label>
+      </div>
+      <div class="form-floating mb-2">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <label for="floatingPassword">Password</label>
+      </div>
+
+      <div class="form-check text-start mb-4">
+        <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">
+          아이디 기억하기
+        </label>
+      </div>
+      <button class="btn btn-primary w-100 py-2" type="submit">로그인</button>
+    </form>
+
+    <div class="container mb-5">
+      <div class="row">
+        <div class="col text-end border-end">
+          <a class="text-primary-emphasis" href="/join">회원가입</a>
+        </div>
+        <div class="col text-start">
+          <a class="text-body" href="/join.html">비밀번호 찾기</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex align-items-center mb-3">
+      <hr class="flex-grow-1">
+      <div class="px-2 text-secondary">간편 로그인</div>
+      <hr class="flex-grow-1">
+    </div>
+
+    <div class="d-flex justify-content-center mb-3">
+      <div class="px-2">
+        <img class="rounded-circle"
+             src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/KakaoTalk_logo.svg/240px-KakaoTalk_logo.svg.png"
+             alt="kakaotalk" width="50px;">
+      </div>
+      <div class="px-2">
+        <img class="rounded-circle"
+             src="https://i.namu.wiki/i/zXFKdpwKCUT-iuJa5JOmAx0ejH3vPPVa5yG-LtOwkdXqTD3UppbCMQJ6ROV8mK4E0jAkrPkoAV1LjCvKKwOwjw02ZSvCB_jM7djzeEYKxwKev-kF6_q57t6i7wK45svpRt0mu9ajUwFeW4tJX8-GJA.svg"
+             alt="naver" width="50px;">
+      </div>
+      <div class="px-2">
+        <img class="rounded-circle"
+             src="https://i.namu.wiki/i/oA1PyvjduOmtH0-M61Y-i7xhyyGBw4eosVpsXIXZNy-6bwV2v0WTXdTE-e7GGvCQVQFIRs8p-2I5NRGriHmsBA.svg"
+             alt="github" width="50px;">
+      </div>
+      <div class="px-2">
+        <img class="rounded-circle"
+             src="https://i.namu.wiki/i/EHTanIC4BWboejVLnsKMFBS7FfnwhvnBB6rNEu-S4id9q3k0QPH162X0o-dfc5eqWwGMS7RiF3StfjzYfwPQV2s6j_rR1TvYFM0WcrCpoC9OoopOk7F2B5P6X-fSawI_cDI6jdP_Y7fswcYIuBLWOQ.svg"
+             alt="google" width="50px;">
+      </div>
+    </div>
+  </main>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
