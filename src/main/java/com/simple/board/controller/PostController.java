@@ -3,7 +3,9 @@ package com.simple.board.controller;
 import com.simple.board.domain.dto.post.PostDTO;
 import com.simple.board.domain.entity.*;
 import com.simple.board.service.CategoryService;
+import com.simple.board.service.ContentService;
 import com.simple.board.service.PostService;
+import com.simple.board.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -24,8 +26,9 @@ public class PostController {
 
     private final PostService postService;
     private final CategoryService categoryService;
+
+    //테스트용
     private final InItDatas inItDatas;
-    private final EntityManager em;
 
     @GetMapping("/post/{id}")
     public String readPost(@PathVariable Long id, Model model){
@@ -35,31 +38,31 @@ public class PostController {
     }
 
     @GetMapping("/new")
-    public String newPostForm(Model model){
+    public String newForm(Model model){
         //지금은 객체를 넘기지만 나중에 dto 넘길지 고민좀
         List<Category> categories = categoryService.findAll();
         model.addAttribute("categories",categories);
-        return "/post/postForm";
+        return "/post/newForm";
     }
 
     @Transactional
     @PostMapping("/new")
     public String createPost(Long categoryId, String title, String text){
-        log.info("category : {}",categoryId);
-        log.info("title : {}",title);
-        log.info("text : {}",text);
+        Long postId = postService.save(categoryId, title, text);
+        return "redirect:/post/"+postId;
+    }
 
-        Category findCategory = categoryService.findById(categoryId);
-        //userService, contentService, postService 만들어야함
-        User userA = (User) em.createQuery("select u from User u where u.name = :name")
-                .setParameter("name", "userA")
-                .getSingleResult();
-        Content content = new Content(text);
-        em.persist(content);
-        Post post = new Post(findCategory, userA, title,content);
-        em.persist(post);
+    @GetMapping("/post/{id}/edit")
+    public String editForm(@PathVariable Long id, Model model){
+        PostDTO postDTO = postService.findDTOById(id);
+        model.addAttribute("post",postDTO);
+        return "/post/editForm";
+    }
 
-        return "redirect:/post/"+post.getId();
+    @PostMapping("/post/{id}/edit")
+    public String updatePost(@PathVariable Long id,String title,String text){
+        postService.update(id,title,text);
+        return "redirect:/post/"+id;
     }
 
 
