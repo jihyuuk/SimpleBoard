@@ -8,6 +8,7 @@ import com.simple.board.service.PostService;
 import com.simple.board.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -38,6 +39,7 @@ public class PostController {
     }
 
     @GetMapping("/new")
+    @PreAuthorize("isAuthenticated()")
     public String newForm(Model model){
         //지금은 객체를 넘기지만 나중에 dto 넘길지 고민좀
         List<Category> categories = categoryService.findAll();
