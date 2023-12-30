@@ -33,20 +33,25 @@ public class PostService {
     }
 
     @Transactional
-    public void update(Long postId,String title,String text){
+    public void update(Long postId,String title,String text,String accessUser){
         Post post = postRepository.findById(postId).get();
+        
+        //작성자만이 업데이트 가능
+        if(!post.getUser().getName().equals(accessUser)){
+            return;
+        }
         post.setTitle(title);
         post.getContent().setText(text);
     }
 
     @Transactional
-    public Long save(Long categoryId, String title, String text){
-        User user = userService.findByName("userA");
-
+    public Long save(Long categoryId, String title, String text, String userName){
+        Category category = categoryService.findById(categoryId);
+        User user = userService.findByName(userName);
+        //이미 isAuthenticated()로 확인했지만
+        //USER가 없을시 예외처리해야함, cateogry도 마찬가지
         Content content = new Content(text);
         contentService.save(content);
-
-        Category category = categoryService.findById(categoryId);
 
         Post post = new Post(category, user, title,content);
         return postRepository.save(post).getId();

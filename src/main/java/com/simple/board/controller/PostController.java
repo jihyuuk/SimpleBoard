@@ -9,6 +9,7 @@ import com.simple.board.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -32,9 +33,14 @@ public class PostController {
     private final InItDatas inItDatas;
 
     @GetMapping("/post/{id}")
-    public String readPost(@PathVariable Long id, Model model){
+    public String readPost(@PathVariable Long id, Model model, Authentication authentication){
         PostDTO postDTO = postService.findDTOById(id);
+
+        //본인이 작성자인지 여부
+        boolean isAuthor = authentication != null && isAuthor(authentication,postDTO);
+
         model.addAttribute("post",postDTO);
+        model.addAttribute("isAuthor",isAuthor);
         return "/post/postView";
     }
 
@@ -47,26 +53,38 @@ public class PostController {
         return "/post/newForm";
     }
 
-    @Transactional
     @PostMapping("/new")
-    public String createPost(Long categoryId, String title, String text){
-        Long postId = postService.save(categoryId, title, text);
+    @PreAuthorize("isAuthenticated()")
+    public String createPost(Long categoryId, String title, String text, Authentication authentication){
+        Long postId = postService.save(categoryId, title, text, authentication.getName());
         return "redirect:/post/"+postId;
     }
 
     @GetMapping("/post/{id}/edit")
-    public String editForm(@PathVariable Long id, Model model){
+    @PreAuthorize("isAuthenticated()")
+    public String editForm(@PathVariable Long id, Model model,Authentication authentication){
         PostDTO postDTO = postService.findDTOById(id);
+        
+        //작성자만 수정폼 보여줌
+        if(!isAuthor(authentication, postDTO)){
+            return "redirect:/post/"+id;
+        }
         model.addAttribute("post",postDTO);
         return "/post/editForm";
     }
 
+
     @PostMapping("/post/{id}/edit")
-    public String updatePost(@PathVariable Long id,String title,String text){
-        postService.update(id,title,text);
+    @PreAuthorize("isAuthenticated()")
+    public String updatePost(@PathVariable Long id,String title,String text, Authentication authentication){
+        postService.update(id,title,text,authentication.getName());
         return "redirect:/post/"+id;
     }
 
+
+    private boolean isAuthor(Authentication authentication, PostDTO postDTO) {
+        return postDTO.getUserName().equals(authentication.getName());
+    }
 
     //테스트 데이터
     @PostConstruct
