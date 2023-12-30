@@ -20,7 +20,7 @@ public class Category {
     private Long id;
 
     private String name;
-    private boolean enable;
+    private boolean enabled;
     
     @OneToMany(mappedBy = "category",fetch = FetchType.LAZY)
     private List<Post> posts = new ArrayList<>();
@@ -35,6 +35,6 @@ public class Category {
 
     public Category(String name) {
         this.name = name;
-        enable = true;
+        enabled = true;
     }
 }
