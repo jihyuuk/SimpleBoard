@@ -23,18 +23,19 @@ public class PostService {
     private final CategoryService categoryService;
 
     public PostDTO findDTOById(Long id){
-        Optional<Post> opPost = postRepository.findById(id);
-        Post post = opPost.get();
+        //enabled=true인 게시글만
+        Post post = postRepository.findByIdAndEnabledTrue(id);
         return new PostDTO(post);
     }
 
     public Post findById(Long id){
-        return postRepository.findById(id).get();
+        return postRepository.findByIdAndEnabledTrue(id);
     }
 
     @Transactional
     public void update(Long postId,String title,String text,String accessUser){
-        Post post = postRepository.findById(postId).get();
+        //enabled=true인 게시글만
+        Post post = postRepository.findByIdAndEnabledTrue(postId);
         
         //작성자만이 업데이트 가능
         if(!post.getUser().getName().equals(accessUser)){
@@ -57,4 +58,14 @@ public class PostService {
         return postRepository.save(post).getId();
     }
 
+    @Transactional
+    public void delete(Long id, String accessUser) {
+        //논리적삭제 enabled = false로 논리적삭제
+        Post post = postRepository.findById(id).get();
+        //작성자만이 업데이트 가능
+        if(!post.getUser().getName().equals(accessUser)){
+            return;
+        }
+        post.setEnabled(false);
+    }
 }

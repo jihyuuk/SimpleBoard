@@ -3,22 +3,18 @@ package com.simple.board.controller;
 import com.simple.board.domain.dto.post.PostDTO;
 import com.simple.board.domain.entity.*;
 import com.simple.board.service.CategoryService;
-import com.simple.board.service.ContentService;
 import com.simple.board.service.PostService;
-import com.simple.board.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
 import java.util.List;
 
 @Slf4j
@@ -79,6 +75,13 @@ public class PostController {
     public String updatePost(@PathVariable Long id,String title,String text, Authentication authentication){
         postService.update(id,title,text,authentication.getName());
         return "redirect:/post/"+id;
+    }
+
+    @GetMapping("/post/{id}/delete")
+    @PreAuthorize("isAuthenticated()")
+    public String deletePost(@PathVariable Long id,Authentication authentication){
+        postService.delete(id,authentication.getName());
+        return "redirect:/";
     }
 
 

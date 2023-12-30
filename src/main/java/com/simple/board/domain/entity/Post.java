@@ -48,12 +48,14 @@ public class Post extends BaseTime {
         enabled = true;
     }
 
-    //수정테스트
+    //나중에 setter말고 의미있는 메소드로 바꾸자
     public void setTitle(String title) {
         this.title = title;
     }
-
     public void setContent(Content content) {
         this.content = content;
+    }
+    public void setEnabled(Boolean enabled){
+        this.enabled = enabled;
     }
 }

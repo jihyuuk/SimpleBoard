@@ -11,7 +11,7 @@
             </button>
             <ul class="dropdown-menu">
                 <li th:if="${isAuthor}"><a class="dropdown-item" th:href="@{/post/{id}/edit(id=${post.id})}">수정하기</a></li>
-                <li th:if="${isAuthor}"><a class="dropdown-item" href="#">삭제하기</a></li>
+                <li th:if="${isAuthor}"><a class="dropdown-item" th:href="@{/post/{id}/delete(id=${post.id})}">삭제하기</a></li>
                 <li><a class="dropdown-item" href="#">신고하기</a></li>
             </ul>
         </div>
