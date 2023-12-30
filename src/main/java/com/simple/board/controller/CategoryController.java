@@ -36,8 +36,8 @@ public class CategoryController {
         if(category == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        //dto로 변환시키기
-        List<PostDTO> postDTOList = category.getPosts().stream().map(PostDTO::new).collect(Collectors.toList());
+
+        List<PostDTO> postDTOList = category.getEnabledPostDTOS();
 
         model.addAttribute("list", postDTOList);
         return "/board/boardList";
