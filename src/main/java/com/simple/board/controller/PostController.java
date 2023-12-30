@@ -37,7 +37,7 @@ public class PostController {
         PostDTO postDTO = postService.findDTOById(id);
 
         //본인이 작성자인지 여부
-        boolean isAuthor = authentication != null && isAuthor(authentication,postDTO);
+        boolean isAuthor = isAuthor(authentication,postDTO);
 
         model.addAttribute("post",postDTO);
         model.addAttribute("isAuthor",isAuthor);
@@ -65,7 +65,7 @@ public class PostController {
     public String editForm(@PathVariable Long id, Model model,Authentication authentication){
         PostDTO postDTO = postService.findDTOById(id);
         
-        //작성자만 수정폼 보여줌
+        //작성자아니면 리다이렉트
         if(!isAuthor(authentication, postDTO)){
             return "redirect:/post/"+id;
         }
@@ -82,8 +82,9 @@ public class PostController {
     }
 
 
+    //작성자인지 확인하는 메서드
     private boolean isAuthor(Authentication authentication, PostDTO postDTO) {
-        return postDTO.getUserName().equals(authentication.getName());
+        return authentication != null && postDTO.getUserName().equals(authentication.getName());
     }
 
     //테스트 데이터
