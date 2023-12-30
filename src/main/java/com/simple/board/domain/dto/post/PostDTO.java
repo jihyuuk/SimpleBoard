@@ -3,7 +3,6 @@ package com.simple.board.domain.dto.post;
 import com.simple.board.domain.entity.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +23,7 @@ public class PostDTO {
     private int hates;
     private int views;
 
-    private LocalDateTime lastModifiedDate;
+    private String lastModifiedDate;
 
     public PostDTO(Post post) {
         id = post.getId();
