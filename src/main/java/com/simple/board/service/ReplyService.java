@@ -5,8 +5,11 @@ import com.simple.board.domain.entity.Reply;
 import com.simple.board.domain.entity.User;
 import com.simple.board.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
+
 
 @Service
 @RequiredArgsConstructor
@@ -17,10 +20,42 @@ public class ReplyService {
     private final UserService userService;
 
     @Transactional
-    public void save(Long postId, String comment){
+    public void save(Long postId, String comment, String userName){
         Post post = postService.findById(postId);
-        User user = userService.findByName("userA");
+        User user = userService.findByName(userName);
+        //post,user null체크 해야함
+
         Reply reply = new Reply(post,user,comment);
         replyRepository.save(reply);
     }
+
+    @Transactional
+    public Long update(Long replyId,String comment, String accessUser) {
+        Reply reply = replyRepository.findById(replyId).orElse(null);
+        beforeUpdateCheck(accessUser, reply);
+        reply.setComment(comment);
+
+        return reply.getPost().getId();
+    }
+
+    @Transactional
+    public Long delete(Long replyId, String accessUser) {
+        //논리적 삭제 enabled = false로
+        Reply reply = replyRepository.findById(replyId).orElse(null);
+        beforeUpdateCheck(accessUser, reply);
+        reply.setEnabled(false);
+
+        return reply.getPost().getId();
+    }
+
+    private void beforeUpdateCheck(String accessUser, Reply reply) {
+        if(reply == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        if(!reply.getUser().getName().equals(accessUser)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+    }
+
+
 }

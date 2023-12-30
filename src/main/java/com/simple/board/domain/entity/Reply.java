@@ -39,4 +39,12 @@ public class Reply extends BaseTime {
 
         post.getReplies().add(this);
     }
+
+    public void setComment(String comment){
+        this.comment = comment;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 }
