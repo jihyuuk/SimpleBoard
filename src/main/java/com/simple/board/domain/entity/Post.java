@@ -1,6 +1,7 @@
 package com.simple.board.domain.entity;
 
 import com.simple.board.domain.auditing.BaseTime;
+import com.simple.board.domain.entity.like.PostLike;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,8 +33,6 @@ public class Post extends BaseTime {
     @JoinColumn(name = "content_id")
     private Content content;
 
-    private int likes;
-    private int hates;
     private int views;
     private boolean enabled;
 
@@ -58,4 +57,5 @@ public class Post extends BaseTime {
     public void setEnabled(Boolean enabled){
         this.enabled = enabled;
     }
+
 }

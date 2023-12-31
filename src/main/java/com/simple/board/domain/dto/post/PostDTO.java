@@ -1,6 +1,7 @@
 package com.simple.board.domain.dto.post;
 
 import com.simple.board.domain.entity.*;
+import com.simple.board.domain.entity.like.PostLike;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -19,8 +20,6 @@ public class PostDTO {
     //ReplyDTO로 변경해야함
     private List<Reply> replies = new ArrayList<>();
 
-    private int likes;
-    private int hates;
     private int views;
 
     private String lastModifiedDate;
@@ -32,8 +31,6 @@ public class PostDTO {
         title = post.getTitle();
         content = post.getContent().getText();
         replies =  post.getReplies().stream().filter(Reply::isEnabled).collect(Collectors.toList());
-        likes = post.getLikes();
-        hates = post.getHates();
         views = post.getViews();
         lastModifiedDate = post.getLastModifiedDate();
     }

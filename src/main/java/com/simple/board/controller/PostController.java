@@ -1,8 +1,10 @@
 package com.simple.board.controller;
 
+import com.simple.board.domain.dto.PostLikeDTO;
 import com.simple.board.domain.dto.post.PostDTO;
 import com.simple.board.domain.entity.*;
 import com.simple.board.service.CategoryService;
+import com.simple.board.service.LikeService;
 import com.simple.board.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +29,7 @@ public class PostController {
 
     private final PostService postService;
     private final CategoryService categoryService;
+    private final LikeService likeService;
 
     //테스트용
     private final InItDatas inItDatas;
@@ -38,9 +41,13 @@ public class PostController {
 
         //존재하지 않는 post 요청시
         checkNullPost(post);
+        
+        //좋아요,싫어요 정보
+        PostLikeDTO postLikeDTO = likeService.getLikeDTO(id,authentication == null ? null : authentication.getName());
 
         model.addAttribute("post",new PostDTO(post));
         model.addAttribute("isAuthor",isAuthor(authentication,post));
+        model.addAttribute("postLike",postLikeDTO);
         return "/post/postView";
     }
 
