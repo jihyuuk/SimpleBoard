@@ -1,4 +1,4 @@
-package com.simple.board.domain.dto;
+package com.simple.board.domain.dto.like;
 
 import lombok.Getter;
 

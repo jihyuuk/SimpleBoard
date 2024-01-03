@@ -1,8 +1,10 @@
 package com.simple.board.controller;
 
-import com.simple.board.domain.dto.PostLikeDTO;
+import com.simple.board.domain.dto.like.PostLikeDTO;
+import com.simple.board.domain.dto.like.ReplyLikeDTO;
 import com.simple.board.domain.dto.post.PostDTO;
 import com.simple.board.domain.entity.*;
+import com.simple.board.domain.entity.like.ReplyLikes;
 import com.simple.board.service.CategoryService;
 import com.simple.board.service.LikeService;
 import com.simple.board.service.PostService;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -44,17 +47,26 @@ public class PostController {
 
         //본인이 이미 눌렀던 좋아요,싫어요 정보
         PostLikeDTO postLikeDTO;
+        //List<ReplyLikes> ReplyLikesList = new ArrayList<>();
+        List<Long> replyLikes = new ArrayList<>();
+        List<Long> replyHates = new ArrayList<>();
 
         //로그인 여부
         if(authentication == null){
             postLikeDTO = new PostLikeDTO(false,false);
         }else {
             postLikeDTO = likeService.getPostLikeDTO(id, authentication.getName());
+            //ReplyLikesList = likeService.likedReplyList(id,authentication.getName());
+            replyLikes = likeService.getUserLikedReplyIds(post.getReplies(),authentication.getName());
+            replyHates = likeService.getUserHatedReplyIds(post.getReplies(),authentication.getName());
         }
 
         model.addAttribute("post",new PostDTO(post));
         model.addAttribute("isAuthor",isAuthor(authentication,post));
         model.addAttribute("postLikeDTO",postLikeDTO);
+        model.addAttribute("replyLikes",replyLikes);
+        model.addAttribute("replyHates",replyHates);
+        //model.addAttribute("likedReplyList",ReplyLikesList);
         return "/post/postView";
     }
 

@@ -16,10 +16,17 @@ public class LikeController {
     private final LikeService likeService;
 
     @GetMapping("/post/{postId}/like")
-    public String like(@PathVariable Long postId, Authentication authentication,boolean isLiked){
+    public String postLike(@PathVariable Long postId, Authentication authentication,boolean isLiked){
         String userName = authentication.getName();
-        likeService.likeRequest(postId,userName,isLiked);
+        likeService.postLikeRequest(postId,userName,isLiked);
         return "redirect:/post/"+postId;
+    }
+
+    @GetMapping("/reply/{replyId}/like")
+    public String replyLike(@PathVariable Long replyId, Authentication authentication,boolean isLiked,String redirect){
+        String userName = authentication.getName();
+        likeService.replyLikeRequest(replyId,userName,isLiked);
+        return "redirect:"+redirect;
     }
 
 }
