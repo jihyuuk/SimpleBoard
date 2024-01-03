@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PostLike {
+public class PostLikes {
 
     @Id @GeneratedValue
     @Column(name = "post_like_id")
@@ -25,15 +25,15 @@ public class PostLike {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private boolean liked;
+    private boolean isLiked;
 
-    public PostLike(Post post, User user, boolean liked) {
+    public PostLikes(Post post, User user, boolean isLiked) {
         this.post = post;
         this.user = user;
-        this.liked = liked;
+        this.isLiked = isLiked;
     }
 
     public void setLiked(boolean liked) {
-        this.liked = liked;
+        this.isLiked = liked;
     }
 }

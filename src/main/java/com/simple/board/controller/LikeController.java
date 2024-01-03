@@ -16,9 +16,9 @@ public class LikeController {
     private final LikeService likeService;
 
     @GetMapping("/post/{postId}/like")
-    public String like(@PathVariable Long postId, Authentication authentication,boolean liked){
+    public String like(@PathVariable Long postId, Authentication authentication,boolean isLiked){
         String userName = authentication.getName();
-        likeService.likeRequest(postId,userName,liked);
+        likeService.likeRequest(postId,userName,isLiked);
         return "redirect:/post/"+postId;
     }
 
