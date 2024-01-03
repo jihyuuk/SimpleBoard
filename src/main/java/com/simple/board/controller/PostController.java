@@ -41,13 +41,20 @@ public class PostController {
 
         //존재하지 않는 post 요청시
         checkNullPost(post);
-        
-        //좋아요,싫어요 정보
-        PostLikeDTO postLikeDTO = likeService.getLikeDTO(id,authentication == null ? null : authentication.getName());
+
+        //본인이 이미 눌렀던 좋아요,싫어요 정보
+        PostLikeDTO postLikeDTO;
+
+        //로그인 여부
+        if(authentication == null){
+            postLikeDTO = new PostLikeDTO(false,false);
+        }else {
+            postLikeDTO = likeService.getPostLikeDTO(id, authentication.getName());
+        }
 
         model.addAttribute("post",new PostDTO(post));
         model.addAttribute("isAuthor",isAuthor(authentication,post));
-        model.addAttribute("postLike",postLikeDTO);
+        model.addAttribute("postLikeDTO",postLikeDTO);
         return "/post/postView";
     }
 

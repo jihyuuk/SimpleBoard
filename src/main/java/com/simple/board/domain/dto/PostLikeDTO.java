@@ -5,13 +5,11 @@ import lombok.Getter;
 @Getter
 public class PostLikeDTO {
 
-    private Long likes;
-    private Long hates;
-    private Boolean Liked;
+    boolean isLiked;
+    boolean isHated;
 
-    public PostLikeDTO(Long likes, Long hates, Boolean liked) {
-        this.likes = likes;
-        this.hates = hates;
-        Liked = liked;
+    public PostLikeDTO(boolean isLiked, boolean isHated) {
+        this.isLiked = isLiked;
+        this.isHated = isHated;
     }
 }
