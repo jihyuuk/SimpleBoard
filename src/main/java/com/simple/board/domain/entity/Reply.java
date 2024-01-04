@@ -46,4 +46,12 @@ public class Reply extends BaseTime {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public void setHates(int hates) {
+        this.hates = hates;
+    }
 }

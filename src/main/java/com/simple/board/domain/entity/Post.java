@@ -1,7 +1,6 @@
 package com.simple.board.domain.entity;
 
 import com.simple.board.domain.auditing.BaseTime;
-import com.simple.board.domain.entity.like.PostLike;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,10 +32,13 @@ public class Post extends BaseTime {
     @JoinColumn(name = "content_id")
     private Content content;
 
+    private int likes;
+    private int hates;
     private int views;
     private boolean enabled;
 
-    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+    //댓글은 항상 같이불러와서 fetch.Lazy 할 필요 없을 듯
+    @OneToMany(mappedBy = "post")
     private List<Reply> replies = new ArrayList<>();
 
     public Post(Category category, User user, String title, Content content) {
@@ -57,5 +59,10 @@ public class Post extends BaseTime {
     public void setEnabled(Boolean enabled){
         this.enabled = enabled;
     }
-
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+    public void setHates(int hates) {
+        this.hates = hates;
+    }
 }

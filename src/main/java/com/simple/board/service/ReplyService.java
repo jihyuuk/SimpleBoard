@@ -19,6 +19,10 @@ public class ReplyService {
     private final PostService postService;
     private final UserService userService;
 
+    public Reply findById(Long id){
+        return replyRepository.findById(id).get();
+    }
+
     @Transactional
     public void save(Long postId, String comment, String userName){
         Post post = postService.findById(postId);

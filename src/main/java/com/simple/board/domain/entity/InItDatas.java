@@ -18,9 +18,9 @@ public class InItDatas {
 
     @Transactional
     public void init(){
-        User user = new User("aaa@gmail.com", "123123", "userA");
-        User userB = new User("bbb@gmail.com", "123123", "userB");
-        User userC = new User("ccc@gmail.com", "123123", "userC");
+        User user = new User("aaa@gmail.com", bCryptPasswordEncoder.encode("123123"), "userA");
+        User userB = new User("bbb@gmail.com", bCryptPasswordEncoder.encode("123123"), "userB");
+        User userC = new User("ccc@gmail.com", bCryptPasswordEncoder.encode("123123"), "userC");
         User userJ = new User("jihyuk8778@gmail.com", bCryptPasswordEncoder.encode("123123"), "나이키슈즈");
         em.persist(user);
         em.persist(userB);
