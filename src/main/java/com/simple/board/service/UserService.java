@@ -1,7 +1,7 @@
 package com.simple.board.service;
 
 import com.simple.board.domain.entity.User;
-import com.simple.board.repository.UserRepository;
+import com.simple.board.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

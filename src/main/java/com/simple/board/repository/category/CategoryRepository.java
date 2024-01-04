@@ -1,4 +1,4 @@
-package com.simple.board.repository;
+package com.simple.board.repository.category;
 
 import com.simple.board.domain.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;

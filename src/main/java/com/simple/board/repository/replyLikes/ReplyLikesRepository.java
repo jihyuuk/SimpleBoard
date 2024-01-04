@@ -1,4 +1,4 @@
-package com.simple.board.repository;
+package com.simple.board.repository.replyLikes;
 
 import com.simple.board.domain.dto.like.ReplyLikeDTO;
 import com.simple.board.domain.entity.Reply;

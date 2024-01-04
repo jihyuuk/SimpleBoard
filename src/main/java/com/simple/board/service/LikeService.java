@@ -1,14 +1,13 @@
 package com.simple.board.service;
 
 import com.simple.board.domain.dto.like.PostLikeDTO;
-import com.simple.board.domain.dto.like.ReplyLikeDTO;
 import com.simple.board.domain.entity.Post;
 import com.simple.board.domain.entity.Reply;
 import com.simple.board.domain.entity.User;
 import com.simple.board.domain.entity.like.PostLikes;
 import com.simple.board.domain.entity.like.ReplyLikes;
-import com.simple.board.repository.PostLikesRepository;
-import com.simple.board.repository.ReplyLikesRepository;
+import com.simple.board.repository.postLikes.PostLikesRepository;
+import com.simple.board.repository.replyLikes.ReplyLikesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

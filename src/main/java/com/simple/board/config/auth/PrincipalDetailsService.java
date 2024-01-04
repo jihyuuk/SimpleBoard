@@ -2,7 +2,7 @@ package com.simple.board.config.auth;
 
 
 import com.simple.board.domain.entity.User;
-import com.simple.board.repository.UserRepository;
+import com.simple.board.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

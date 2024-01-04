@@ -1,4 +1,4 @@
-package com.simple.board.repository;
+package com.simple.board.repository.postLikes;
 
 import com.simple.board.domain.entity.like.PostLikes;
 import org.springframework.data.jpa.repository.JpaRepository;

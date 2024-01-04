@@ -1,4 +1,4 @@
-package com.simple.board.repository;
+package com.simple.board.repository.user;
 
 import com.simple.board.domain.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;

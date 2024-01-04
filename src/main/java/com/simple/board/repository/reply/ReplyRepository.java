@@ -1,4 +1,4 @@
-package com.simple.board.repository;
+package com.simple.board.repository.reply;
 
 import com.simple.board.domain.entity.Reply;
 import org.springframework.data.jpa.repository.JpaRepository;
