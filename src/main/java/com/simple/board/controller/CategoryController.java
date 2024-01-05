@@ -37,7 +37,7 @@ public class CategoryController {
         if(category == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        List<BoardDTO> list = postService.getBoardDTOS(category);
+        List<BoardDTO> list = postService.getBoardDTOs(category);
         model.addAttribute("list",list);
         return "/board/boardList";
     }
