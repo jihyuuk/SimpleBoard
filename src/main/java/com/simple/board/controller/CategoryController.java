@@ -1,7 +1,6 @@
 package com.simple.board.controller;
 
 import com.simple.board.domain.dto.board.BoardDTO;
-import com.simple.board.domain.dto.post.PostDTO;
 import com.simple.board.domain.entity.Category;
 import com.simple.board.service.CategoryService;
 import com.simple.board.service.PostService;

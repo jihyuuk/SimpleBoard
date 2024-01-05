@@ -1,15 +1,19 @@
 package com.simple.board.service;
 
+import com.simple.board.domain.dto.board.BoardDTO;
+import com.simple.board.domain.dto.post.PostDTO;
 import com.simple.board.domain.entity.Category;
 import com.simple.board.domain.entity.Content;
 import com.simple.board.domain.entity.Post;
 import com.simple.board.domain.entity.User;
-import com.simple.board.repository.PostRepository;
+import com.simple.board.repository.post.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 
 @Service
@@ -27,6 +31,14 @@ public class PostService {
         return postRepository.findByIdAndEnabledTrue(id);
     }
 
+    public Post getReferenceById(Long id){
+        return postRepository.getReferenceById(id);
+    }
+
+    public boolean existById(Long id){
+        return postRepository.existsById(id);
+    }
+
     @Transactional
     public void update(Long postId,String title,String text,String accessUser){
         //enabled=true인 게시글만
@@ -37,8 +49,6 @@ public class PostService {
         post.setTitle(title);
         post.getContent().setText(text);
     }
-
-
 
     @Transactional
     public Long save(Long categoryId, String title, String text, String userName){
@@ -62,6 +72,15 @@ public class PostService {
         
         post.setEnabled(false);
     }
+
+    public List<BoardDTO> getBoardDTOs(Category category){
+        return postRepository.findAllBoardDTO(category);
+    }
+
+    public PostDTO getPostDTO(Long id){
+        return postRepository.findPostDTO(id);
+    }
+
 
     //작성자인지 확인
     private boolean isAuthor(String accessUser, Post post) {
