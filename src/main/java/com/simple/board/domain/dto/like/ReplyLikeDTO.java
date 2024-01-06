@@ -1,14 +1,32 @@
 package com.simple.board.domain.dto.like;
+import com.simple.board.domain.entity.like.ReplyLikes;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Getter
-@Setter
-@AllArgsConstructor
+@NoArgsConstructor
 public class ReplyLikeDTO {
 
-    Long Id;
-    boolean isLiked;
+    private Map<Long,Boolean> map = new HashMap<>();
+
+    public ReplyLikeDTO (List<ReplyLikes> list){
+        list.forEach(replyLikes -> map.put(replyLikes.getReply().getId(),replyLikes.isLiked()));
+    }
+
+    public boolean isLiked(Long replyId){
+        Boolean reaction = map.get(replyId);
+        return reaction != null && reaction.equals(true);
+    }
+
+    public boolean isHated(Long replyId){
+        Boolean reaction = map.get(replyId);
+        return reaction != null && reaction.equals(false);
+    }
 
 }
