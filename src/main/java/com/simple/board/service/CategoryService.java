@@ -1,7 +1,7 @@
 package com.simple.board.service;
 
 import com.simple.board.domain.entity.Category;
-import com.simple.board.repository.CategoryRepository;
+import com.simple.board.repository.category.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

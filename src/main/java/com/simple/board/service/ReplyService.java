@@ -1,14 +1,17 @@
 package com.simple.board.service;
 
+import com.simple.board.domain.dto.Reply.ReplyDTO;
 import com.simple.board.domain.entity.Post;
 import com.simple.board.domain.entity.Reply;
 import com.simple.board.domain.entity.User;
-import com.simple.board.repository.ReplyRepository;
+import com.simple.board.repository.reply.ReplyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 
 @Service
@@ -21,6 +24,10 @@ public class ReplyService {
 
     public Reply findById(Long id){
         return replyRepository.findById(id).get();
+    }
+
+    public List<ReplyDTO> getReplyDTOs(Long postId){
+        return replyRepository.findALLReplyDTO(postId);
     }
 
     @Transactional

@@ -18,17 +18,17 @@ public class Post extends BaseTime {
     @Column(name = "post_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
     private String title;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "content_id")
     private Content content;
 
@@ -37,7 +37,6 @@ public class Post extends BaseTime {
     private int views;
     private boolean enabled;
 
-    //댓글은 항상 같이불러와서 fetch.Lazy 할 필요 없을 듯
     @OneToMany(mappedBy = "post")
     private List<Reply> replies = new ArrayList<>();
 

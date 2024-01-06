@@ -7,14 +7,13 @@ import com.simple.board.domain.entity.Reply;
 import com.simple.board.domain.entity.User;
 import com.simple.board.domain.entity.like.PostLikes;
 import com.simple.board.domain.entity.like.ReplyLikes;
-import com.simple.board.repository.PostLikesRepository;
-import com.simple.board.repository.ReplyLikesRepository;
+import com.simple.board.repository.postLikes.PostLikesRepository;
+import com.simple.board.repository.replyLikes.ReplyLikesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -75,17 +74,6 @@ public class LikeService {
         postLikes.setLiked(isLiked);
     }
 
-    public PostLikeDTO getPostLikeDTO(Long postId, String userName) {
-        //방법 1. postId,userName으로 postLikes 튜플 찾아서 분석하기 // 쿼리 1번
-        //방법 2. exits로 존재 여부 확인하기 // 쿼리 2번
-        //선택 : 2
-        if(userName == null) return new PostLikeDTO(false,false);
-
-        boolean isLiked = postLikesRepository.existsByPostIdAndUser_nameAndIsLiked(postId, userName, true);
-        boolean isHated= postLikesRepository.existsByPostIdAndUser_nameAndIsLiked(postId, userName, false);
-        return  new PostLikeDTO(isLiked,isHated);
-    }
-
     @Transactional
     public void replyLikeRequest(Long replyId, String userName, boolean isLiked){
         ReplyLikes replyLikes = replyLikesRepository.findByReplyIdAndUser_name(replyId, userName);
@@ -133,14 +121,30 @@ public class LikeService {
         replyLikes.setLiked(isLiked);
     }
 
-    public List<Long> getUserLikedReplyIds(List<Reply> replies,String userName){
-        List<ReplyLikes> list = replyLikesRepository.findAllByReplyInAndUser_nameAndIsLiked(replies, userName, true);
-        return list.stream().map(rk -> rk.getReply().getId()).collect(Collectors.toList());
+    public PostLikeDTO getPostLikeDTO(Long postId, String userName) {
+        //방법 1. postId,userName으로 postLikes 튜플 찾아서 분석하기 // 쿼리 1번
+        //방법 2. exits로 존재 여부 확인하기 // 쿼리 2번 -> 분석해보니 exist도 select로 가져옴
+        //선택 : 1
+        PostLikes postLikes = postLikesRepository.findByPostIdAndUser_name(postId, userName);
+        if(postLikes == null){
+            return new PostLikeDTO(false,false);
+        }
+        return  new PostLikeDTO(postLikes.isLiked() == true,postLikes.isLiked() == false);
     }
 
-    public List<Long> getUserHatedReplyIds(List<Reply> replies,String userName){
-        List<ReplyLikes> list = replyLikesRepository.findAllByReplyInAndUser_nameAndIsLiked(replies, userName, false);
-        return list.stream().map(rk -> rk.getReply().getId()).collect(Collectors.toList());
+    public ReplyLikeDTO getReplyLikeDTO(Post post,String userName){
+        List<ReplyLikes> list = replyLikesRepository.findAllByReply_postAndUser_name(post, userName);
+        return new ReplyLikeDTO(list);
     }
+
+//    public List<Long> getUserLikedReplyIds(List<Reply> replies,String userName){
+//        List<ReplyLikes> list = replyLikesRepository.findAllByReplyInAndUser_nameAndIsLiked(replies, userName, true);
+//        return list.stream().map(rk -> rk.getReply().getId()).collect(Collectors.toList());
+//    }
+//
+//    public List<Long> getUserHatedReplyIds(List<Reply> replies,String userName){
+//        List<ReplyLikes> list = replyLikesRepository.findAllByReplyInAndUser_nameAndIsLiked(replies, userName, false);
+//        return list.stream().map(rk -> rk.getReply().getId()).collect(Collectors.toList());
+//    }
 
 }

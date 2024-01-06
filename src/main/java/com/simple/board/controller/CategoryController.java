@@ -1,8 +1,9 @@
 package com.simple.board.controller;
 
-import com.simple.board.domain.dto.post.PostDTO;
+import com.simple.board.domain.dto.board.BoardDTO;
 import com.simple.board.domain.entity.Category;
 import com.simple.board.service.CategoryService;
+import com.simple.board.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import java.util.List;
 public class CategoryController {
 
     private final CategoryService categoryService;
+    private final PostService postService;
 
     @GetMapping("/")
     public String home(){
@@ -34,10 +36,8 @@ public class CategoryController {
         if(category == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-
-        List<PostDTO> postDTOList = category.getEnabledPostDTOS();
-
-        model.addAttribute("list", postDTOList);
+        List<BoardDTO> list = postService.getBoardDTOs(category);
+        model.addAttribute("list",list);
         return "/board/boardList";
     }
 

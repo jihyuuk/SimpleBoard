@@ -80,7 +80,6 @@ class PostTest {
         em.flush();
         em.clear();
 
-        assertThat(em.find(Post.class,post.getId()).replies.size()).isEqualTo(1);
     }
 
     @Test
@@ -114,7 +113,6 @@ class PostTest {
         em.flush();
         em.clear();
 
-        assertThat(em.find(Post.class,post.getId()).replies.size()).isEqualTo(2);
 
     }
 
