@@ -2,6 +2,7 @@ package com.simple.board.service;
 
 import com.simple.board.domain.dto.board.BoardDTO;
 import com.simple.board.domain.dto.post.PostDTO;
+import com.simple.board.domain.dto.post.PostFormDTO;
 import com.simple.board.domain.entity.Category;
 import com.simple.board.domain.entity.Content;
 import com.simple.board.domain.entity.Post;
@@ -31,6 +32,10 @@ public class PostService {
         return postRepository.findByIdAndEnabledTrue(id);
     }
 
+    public PostFormDTO findPostFormDTO(Long id,String userName){
+        return postRepository.findByIdAndUser_name(id,userName);
+    }
+
     public Post getReferenceById(Long id){
         return postRepository.getReferenceById(id);
     }
@@ -40,26 +45,26 @@ public class PostService {
     }
 
     @Transactional
-    public void update(Long postId,String title,String text,String accessUser){
+    public void update(PostFormDTO dto,String accessUser){
         //enabled=true인 게시글만
-        Post post = findById(postId);
+        Post post = findById(dto.getId());
 
         beforeUpdateCheck(accessUser, post);
 
-        post.setTitle(title);
-        post.getContent().setText(text);
+        post.setTitle(dto.getTitle());
+        post.getContent().setText(dto.getContent());
     }
 
     @Transactional
-    public Long save(Long categoryId, String title, String text, String userName){
-        Category category = categoryService.findById(categoryId);
+    public Long save(PostFormDTO dto, String userName){
+        Category category = categoryService.findById(dto.getCategoryId());
         User user = userService.findByName(userName);
         //이미 isAuthenticated()로 확인했지만
         //USER가 없을시 예외처리해야함, cateogry도 마찬가지
-        Content content = new Content(text);
+        Content content = new Content(dto.getContent());
         contentService.save(content);
 
-        Post post = new Post(category, user, title,content);
+        Post post = new Post(category, user, dto.getTitle(), content);
         return postRepository.save(post).getId();
     }
 

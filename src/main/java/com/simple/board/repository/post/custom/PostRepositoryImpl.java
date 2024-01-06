@@ -5,6 +5,7 @@ import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.simple.board.domain.dto.board.BoardDTO;
 import com.simple.board.domain.dto.post.PostDTO;
+import com.simple.board.domain.dto.post.PostFormDTO;
 import com.simple.board.domain.entity.*;
 
 import javax.persistence.EntityManager;
@@ -14,6 +15,7 @@ import static com.simple.board.domain.entity.QCategory.category;
 import static com.simple.board.domain.entity.QContent.content;
 import static com.simple.board.domain.entity.QPost.post;
 import static com.simple.board.domain.entity.QReply.reply;
+import static com.simple.board.domain.entity.QUser.user;
 
 public class PostRepositoryImpl implements CustomPostRepository {
 
@@ -37,7 +39,7 @@ public class PostRepositoryImpl implements CustomPostRepository {
                                 JPAExpressions.select(reply.id.count()).from(reply).where(reply.post.eq(post)),
                                 post.views))
                 .from(post)
-                .join(post.user, QUser.user)
+                .join(post.user, user)
                 .where(
                         post.category.eq(category),
                         post.enabled.isTrue()
@@ -57,12 +59,29 @@ public class PostRepositoryImpl implements CustomPostRepository {
                 ))
                 .from(post)
                 .join(post.category, category)
-                .join(post.user, QUser.user)
+                .join(post.user, user)
                 .join(post.content, content)
                 .where(
                         post.id.eq(postId),
                         post.enabled.isTrue()
                 )
+                .fetchOne();
+    }
+
+    @Override
+    public PostFormDTO findByIdAndUser_name(Long id, String name) {
+        return queryFactory.select(
+                Projections.constructor(PostFormDTO.class,
+                        post.id,
+                        post.category.id,
+                        post.category.name,
+                        post.title,
+                        post.content.text))
+                .from(post)
+                .join(post.user, user)
+                .join(post.content, content)
+                .join(post.category, category)
+                .where(post.user.name.eq(name))
                 .fetchOne();
     }
 }
