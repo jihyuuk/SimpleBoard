@@ -44,7 +44,7 @@ public class ReplyService {
     public Long update(Long replyId,String comment, String accessUser) {
         Reply reply = replyRepository.findById(replyId).orElse(null);
         beforeUpdateCheck(accessUser, reply);
-        reply.setComment(comment);
+        reply.updateComment(comment);
 
         return reply.getPost().getId();
     }
