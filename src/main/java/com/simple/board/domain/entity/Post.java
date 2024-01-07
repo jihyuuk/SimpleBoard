@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,13 +49,6 @@ public class Post extends BaseTime {
         enabled = true;
     }
 
-    //나중에 setter말고 의미있는 메소드로 바꾸자
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    public void setContent(Content content) {
-        this.content = content;
-    }
     public void setEnabled(Boolean enabled){
         this.enabled = enabled;
     }
@@ -63,5 +57,11 @@ public class Post extends BaseTime {
     }
     public void setHates(int hates) {
         this.hates = hates;
+    }
+
+    public void update(String title, String content) {
+        setLastModifiedDate(LocalDateTime.now());
+        this.title = title;
+        this.content.setText(content);
     }
 }

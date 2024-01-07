@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -39,7 +40,8 @@ public class Reply extends BaseTime {
         post.getReplies().add(this);
     }
 
-    public void setComment(String comment){
+    public void updateComment(String comment){
+        setLastModifiedDate(LocalDateTime.now());
         this.comment = comment;
     }
 

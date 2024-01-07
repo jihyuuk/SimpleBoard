@@ -51,8 +51,7 @@ public class PostService {
 
         beforeUpdateCheck(accessUser, post);
 
-        post.setTitle(dto.getTitle());
-        post.getContent().setText(dto.getContent());
+        post.update(dto.getTitle(),dto.getContent());
     }
 
     @Transactional
