@@ -81,8 +81,12 @@ public class PostService {
         return postRepository.findAllBoardDTO(category);
     }
 
+    @Transactional
     public PostDTO getPostDTO(Long id){
-        return postRepository.findPostDTO(id);
+        Post post = postRepository.findById(id).get();
+        post.viewUp();
+        return new PostDTO(post);
+        //return postRepository.findPostDTO(id);
     }
 
 

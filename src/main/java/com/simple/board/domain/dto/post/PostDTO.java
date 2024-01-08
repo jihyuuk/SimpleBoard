@@ -17,12 +17,24 @@ public class PostDTO {
     private int views;
     private String lastModifiedDate;
 
-    public PostDTO(Post post, String categoryName, String userName, String content) {
+//    public PostDTO(Post post, String categoryName, String userName, String content) {
+//        this.id = post.getId();
+//        this.categoryName = categoryName;
+//        this.userName = userName;
+//        this.title = post.getTitle();
+//        this.content = content;
+//        this.likes = post.getLikes();
+//        this.hates = post.getHates();
+//        this.views = post.getViews();
+//        this.lastModifiedDate = TimeCalculator.calculate(post.getLastModifiedDate());
+//    }
+
+    public PostDTO(Post post) {
         this.id = post.getId();
-        this.categoryName = categoryName;
-        this.userName = userName;
+        this.categoryName = post.getCategory().getName();
+        this.userName = post.getUser().getName();
         this.title = post.getTitle();
-        this.content = content;
+        this.content = post.getContent().getText();
         this.likes = post.getLikes();
         this.hates = post.getHates();
         this.views = post.getViews();
