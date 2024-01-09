@@ -36,7 +36,7 @@ public class PostRepositoryImpl implements CustomPostRepository {
                                 post.user.name,
                                 post.lastModifiedDate,
                                 post.likes,
-                                JPAExpressions.select(reply.id.count()).from(reply).where(reply.post.eq(post)),
+                                JPAExpressions.select(reply.id.count()).from(reply).where(reply.post.eq(post), reply.enabled.isTrue()),
                                 post.views))
                 .from(post)
                 .join(post.user, user)
