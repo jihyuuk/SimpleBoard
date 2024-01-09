@@ -27,7 +27,7 @@ public class ReplyRepositoryImpl implements CustomReplyRepository {
                         reply.comment,
                         reply.likes,
                         reply.hates,
-                        reply.lastModifiedDate
+                        reply.createdDate
                 ))
                 .from(reply)
                 .join(reply.user, QUser.user)

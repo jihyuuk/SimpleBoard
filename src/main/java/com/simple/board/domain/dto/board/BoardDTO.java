@@ -12,16 +12,16 @@ public class BoardDTO {
     private Long id;
     private String title;
     private String userName;
-    private String date;
+    private String createdDate;
     private int likes;
     private Long replys;
     private int views;
 
-    public BoardDTO(Long id, String title, String userName, LocalDateTime date, int likes, Long replys, int views) {
+    public BoardDTO(Long id, String title, String userName, LocalDateTime createdDate, int likes, Long replys, int views) {
         this.id = id;
         this.title = title;
         this.userName = userName;
-        this.date = TimeCalculator.calculate(date);
+        this.createdDate = TimeCalculator.calculate(createdDate);
         this.likes = likes;
         this.replys = replys;
         this.views = views;

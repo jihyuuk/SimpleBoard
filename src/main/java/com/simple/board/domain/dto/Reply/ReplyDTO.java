@@ -14,14 +14,14 @@ public class ReplyDTO {
     private String comment;
     private int likes;
     private int hates;
-    private String lastModifiedDate;
+    private String createdDate;
 
-    public ReplyDTO(Long id, String userName, String comment, int likes, int hates, LocalDateTime lastModifiedDate) {
+    public ReplyDTO(Long id, String userName, String comment, int likes, int hates, LocalDateTime createdDate) {
         this.id = id;
         this.userName = userName;
         this.comment = comment;
         this.likes = likes;
         this.hates = hates;
-        this.lastModifiedDate = TimeCalculator.calculate(lastModifiedDate);
+        this.createdDate = TimeCalculator.calculate(createdDate);
     }
 }

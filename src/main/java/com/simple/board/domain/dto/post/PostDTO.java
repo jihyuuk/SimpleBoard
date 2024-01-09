@@ -16,7 +16,7 @@ public class PostDTO {
     private int hates;
     private int views;
     private boolean isModified;
-    private String lastModifiedDate;
+    private String createdDate;
 
 //    public PostDTO(Post post, String categoryName, String userName, String content) {
 //        this.id = post.getId();
@@ -40,6 +40,6 @@ public class PostDTO {
         this.hates = post.getHates();
         this.views = post.getViews();
         this.isModified = post.isModified();
-        this.lastModifiedDate = TimeCalculator.calculate(post.getLastModifiedDate());
+        this.createdDate = TimeCalculator.calculate(post.getCreatedDate());
     }
 }
