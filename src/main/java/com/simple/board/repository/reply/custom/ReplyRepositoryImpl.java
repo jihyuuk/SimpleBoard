@@ -31,7 +31,7 @@ public class ReplyRepositoryImpl implements CustomReplyRepository {
                 ))
                 .from(reply)
                 .join(reply.user, QUser.user)
-                .where(reply.post.id.eq(postId))
+                .where(reply.post.id.eq(postId),(reply.enabled).isTrue())
                 .orderBy(reply.createdDate.asc())
                 .fetch();
     }
