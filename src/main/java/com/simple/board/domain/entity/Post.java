@@ -36,6 +36,7 @@ public class Post extends BaseTime {
     private int likes;
     private int hates;
     private int views;
+    private boolean isModified;
     private boolean enabled;
 
     @OneToMany(mappedBy = "post")
@@ -63,6 +64,7 @@ public class Post extends BaseTime {
         setLastModifiedDate(LocalDateTime.now());
         this.title = title;
         this.content.setText(content);
+        this.isModified = true;
     }
 
     public void viewUp(){

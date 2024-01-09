@@ -18,8 +18,9 @@
     </div>
     <div class="mb-4">
         <div class="text-muted mb-2">
-            <span class="me-2" th:text="${post.lastModifiedDate}">2023-12-29 11:23</span>
-            <span th:text="${post.views}">조회 4,325</span>
+            <span th:text="${post.lastModifiedDate}">2023-12-29 11:23</span>
+            <span class="me-2" th:if="${post.isModified}">(수정됨)</span>
+            <span th:text="|조회 ${post.views}|">조회 4,325</span>
         </div>
         <span th:text="|작성자 : ${post.userName}|">작성자 : 나이키슈즈</span>
     </div>
