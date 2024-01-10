@@ -33,6 +33,6 @@ public class TimeCalculator {
             return minutes + "분 전";
         }
 
-        return "방금전";
+        return ChronoUnit.SECONDS.between(dateTime, now)+"초 전";
     }
 }
