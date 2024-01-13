@@ -4,10 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Entity
@@ -17,14 +14,15 @@ public class Content {
     @Id @GeneratedValue
     @Column(name = "content_id")
     private Long id;
-    private String text;
+    @Lob
+    private String contents;
 
-    public Content(String text) {
-        this.text = text;
+    public Content(String contents) {
+        this.contents = contents;
     }
 
     //수정테스트
-    public void setText(String text) {
-        this.text = text;
+    public void setContents(String contents) {
+        this.contents = contents;
     }
 }
