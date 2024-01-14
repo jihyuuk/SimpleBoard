@@ -33,6 +33,7 @@ public class PostRepositoryImpl implements CustomPostRepository {
                         Projections.constructor(BoardDTO.class,
                                 post.id,
                                 post.title,
+                                post.thumbnail,
                                 post.user.name,
                                 post.lastModifiedDate,
                                 post.likes,
