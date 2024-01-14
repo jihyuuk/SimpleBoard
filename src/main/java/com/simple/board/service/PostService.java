@@ -9,6 +9,10 @@ import com.simple.board.domain.entity.Post;
 import com.simple.board.domain.entity.User;
 import com.simple.board.repository.post.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,7 +67,10 @@ public class PostService {
         Content content = new Content(dto.getContent());
         contentService.save(content);
 
-        Post post = new Post(category, user, dto.getTitle(), content);
+        //썸네일 추출
+        String thumbnailUrl = extractThumbnailUrl(dto.getContent());
+
+        Post post = new Post(category, user, dto.getTitle(),thumbnailUrl, content);
         return postRepository.save(post).getId();
     }
 
@@ -87,6 +94,19 @@ public class PostService {
         post.viewUp();
         return new PostDTO(post);
         //return postRepository.findPostDTO(id);
+    }
+
+    //썸네일 추출
+    private String extractThumbnailUrl(String content){
+        //썸네일 추출
+        Document doc = Jsoup.parse(content);
+        Elements imgTags = doc.select("img");
+
+        if(imgTags.isEmpty()){
+            return null;
+        }
+
+        return imgTags.first().attr("src");
     }
 
 
