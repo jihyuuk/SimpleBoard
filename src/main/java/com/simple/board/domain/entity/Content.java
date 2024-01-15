@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Getter
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Content {
 
     @Id @GeneratedValue
