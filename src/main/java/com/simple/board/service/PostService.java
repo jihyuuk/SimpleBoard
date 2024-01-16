@@ -9,6 +9,7 @@ import com.simple.board.domain.entity.Post;
 import com.simple.board.domain.entity.User;
 import com.simple.board.repository.post.PostRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -18,9 +19,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PostService {
@@ -30,6 +36,7 @@ public class PostService {
     private final ContentService contentService;
     private final UserService userService;
     private final CategoryService categoryService;
+    private final PostImageService postImageService;
 
     public Post findById(Long id){
         //enabled=true인 게시글만
@@ -64,8 +71,7 @@ public class PostService {
         User user = userService.findByName(userName);
         //이미 isAuthenticated()로 확인했지만
         //USER가 없을시 예외처리해야함, cateogry도 마찬가지
-        Content content = new Content(dto.getContent());
-        contentService.save(content);
+        Content content = extractImages(dto.getContent());
 
         //썸네일 추출
         String thumbnailUrl = extractThumbnailUrl(dto.getContent());
@@ -107,6 +113,52 @@ public class PostService {
         }
 
         return imgTags.first().attr("src");
+    }
+
+    private Content extractImages(String contents){
+        Document doc = Jsoup.parse(contents);
+        Elements imgTags = doc.select("img");
+
+        if(imgTags.isEmpty()){
+            Content content = new Content(doc.html());
+            contentService.save(content);
+            return content;
+        }
+
+        List<String> images = new ArrayList<>();
+
+        for (Element imgTag : imgTags) {
+            String tempUrl = imgTag.attr("src");
+            String s = "/image/temp/";
+            String fileName = tempUrl.substring(s.length());
+
+            //기존 임시폴더 경로를 진짜 저장소 경로로 변경
+            String newUrl = tempUrl.replace("/temp/", "/images/");
+            imgTag.attr("src",newUrl);
+            images.add(newUrl);
+
+            //파일 진짜 저장소로 move하기
+            String sourceUrl = Paths.get("storage/upload/temp/"+fileName).toAbsolutePath().toString();
+            String destinationUrl = Paths.get("storage/upload/images/"+fileName).toAbsolutePath().toString();
+
+            Path sourcePath = Path.of(sourceUrl);
+            Path destinationPath = Path.of(destinationUrl);
+
+            try {
+                Files.move(sourcePath,destinationPath, StandardCopyOption.REPLACE_EXISTING);
+                log.info("파일 이동 성공");
+            }catch (Exception e){
+                log.info("이미지 move 오류 발생");
+            }
+        }
+
+        Content content = new Content(doc.html());
+        contentService.save(content);
+
+        //db에 넣기
+        postImageService.saveList(content,images);
+
+        return content;
     }
 
 
