@@ -112,7 +112,7 @@ public class PostService {
             return null;
         }
 
-        return imgTags.first().attr("src");
+        return imgTags.first().attr("src").replace("/temp/","/images/");
     }
 
     private Content extractImages(String contents){

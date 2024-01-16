@@ -9,9 +9,24 @@
     <style>
         #post-content img{
             max-width: 100%;
-            height: auto;
             display: block;
             margin: 0 auto;
+        }
+
+        .thumbnail-container{
+            width: 120px;
+            height: 90px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .thumbnail-container img {
+            width: 100%;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* 중심 정렬 */
         }
     </style>
 </head>
