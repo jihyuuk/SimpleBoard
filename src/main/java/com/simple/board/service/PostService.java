@@ -71,10 +71,17 @@ public class PostService {
         User user = userService.findByName(userName);
         //이미 isAuthenticated()로 확인했지만
         //USER가 없을시 예외처리해야함, cateogry도 마찬가지
-        Content content = extractImages(dto.getContent());
-
+        
+        //콘텐츠 생성
+        Content content = new Content(dto.getContent());
+        //이미지 추출
+        List<String> images = extractImages(content);
         //썸네일 추출
-        String thumbnailUrl = extractThumbnailUrl(dto.getContent());
+        String thumbnailUrl = images.isEmpty()? null : images.get(0);
+        
+        //저장
+        contentService.save(content);
+        postImageService.saveList(content,images);
 
         Post post = new Post(category, user, dto.getTitle(),thumbnailUrl, content);
         return postRepository.save(post).getId();
@@ -102,48 +109,35 @@ public class PostService {
         //return postRepository.findPostDTO(id);
     }
 
-    //썸네일 추출
-    private String extractThumbnailUrl(String content){
-        //썸네일 추출
-        Document doc = Jsoup.parse(content);
+
+    private List<String> extractImages(Content content){
+        Document doc = Jsoup.parse(content.getContents());
         Elements imgTags = doc.select("img");
-
-        if(imgTags.isEmpty()){
-            return null;
-        }
-
-        return imgTags.first().attr("src").replace("/temp/","/images/");
-    }
-
-    private Content extractImages(String contents){
-        Document doc = Jsoup.parse(contents);
-        Elements imgTags = doc.select("img");
-
-        if(imgTags.isEmpty()){
-            Content content = new Content(doc.html());
-            contentService.save(content);
-            return content;
-        }
 
         List<String> images = new ArrayList<>();
-
+        
+        //이미지 없으면
+        if(imgTags.isEmpty()){
+            return images;
+        }
+        
+        //이미지 존재시
         for (Element imgTag : imgTags) {
+            //임시 이미지 url
             String tempUrl = imgTag.attr("src");
-            String s = "/image/temp/";
-            String fileName = tempUrl.substring(s.length());
+            //파일명
+            String fileName = tempUrl.substring("/image/temp/".length());
 
             //기존 임시폴더 경로를 진짜 저장소 경로로 변경
             String newUrl = tempUrl.replace("/temp/", "/images/");
             imgTag.attr("src",newUrl);
+            
+            //이미지 리스트에 추가
             images.add(newUrl);
 
             //파일 진짜 저장소로 move하기
-            String sourceUrl = Paths.get("storage/upload/temp/"+fileName).toAbsolutePath().toString();
-            String destinationUrl = Paths.get("storage/upload/images/"+fileName).toAbsolutePath().toString();
-
-            Path sourcePath = Path.of(sourceUrl);
-            Path destinationPath = Path.of(destinationUrl);
-
+            Path sourcePath = Paths.get("storage/upload/temp/"+fileName).toAbsolutePath();
+            Path destinationPath = Paths.get("storage/upload/images/"+fileName).toAbsolutePath();
             try {
                 Files.move(sourcePath,destinationPath, StandardCopyOption.REPLACE_EXISTING);
                 log.info("파일 이동 성공");
@@ -152,13 +146,9 @@ public class PostService {
             }
         }
 
-        Content content = new Content(doc.html());
-        contentService.save(content);
+        content.setContents(doc.html());
 
-        //db에 넣기
-        postImageService.saveList(content,images);
-
-        return content;
+        return images;
     }
 
 
