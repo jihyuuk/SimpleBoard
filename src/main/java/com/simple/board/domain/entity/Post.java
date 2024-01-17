@@ -29,6 +29,8 @@ public class Post extends BaseTime {
 
     private String title;
 
+    private String thumbnail;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "content_id")
     private Content content;
@@ -42,10 +44,11 @@ public class Post extends BaseTime {
     @OneToMany(mappedBy = "post")
     private List<Reply> replies = new ArrayList<>();
 
-    public Post(Category category, User user, String title, Content content) {
+    public Post(Category category, User user, String title,String thumbnail, Content content) {
         this.category = category;
         this.user = user;
         this.title = title;
+        this.thumbnail = thumbnail;
         this.content = content;
         enabled = true;
     }
@@ -60,10 +63,10 @@ public class Post extends BaseTime {
         this.hates = hates;
     }
 
-    public void update(String title, String content) {
+    public void update(String title, String contents) {
         setLastModifiedDate(LocalDateTime.now());
         this.title = title;
-        this.content.setText(content);
+        this.content.setContents(contents);
         this.isModified = true;
     }
 

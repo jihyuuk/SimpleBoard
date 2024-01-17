@@ -33,6 +33,7 @@ public class PostRepositoryImpl implements CustomPostRepository {
                         Projections.constructor(BoardDTO.class,
                                 post.id,
                                 post.title,
+                                post.thumbnail,
                                 post.user.name,
                                 post.lastModifiedDate,
                                 post.likes,
@@ -55,7 +56,7 @@ public class PostRepositoryImpl implements CustomPostRepository {
                                 post,
                                 category.name,
                                 post.user.name,
-                                content.text
+                                content.contents
                 ))
                 .from(post)
                 .join(post.category, category)
@@ -76,7 +77,7 @@ public class PostRepositoryImpl implements CustomPostRepository {
                         post.category.id,
                         post.category.name,
                         post.title,
-                        post.content.text))
+                        post.content.contents))
                 .from(post)
                 .join(post.user, user)
                 .join(post.content, content)

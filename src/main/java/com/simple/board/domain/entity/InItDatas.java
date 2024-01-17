@@ -39,7 +39,7 @@ public class InItDatas {
         Content content = new Content("모든 국민은 법률이 정하는 바에 의하여 선거권을 가진다. 선거에 관한 경비는 법률이 정하는 경우를 제외하고는 정당 또는 후보자에게 부담시킬 수 없다.");
         em.persist(content);
 
-        Post post = new Post(category,user,"제목제목제제목",content);
+        Post post = new Post(category,user,"제목제목제제목","/thumbnail/temp-thumbnail.jpg",content);
         em.persist(post);
 
         Reply reply1 = new Reply(post, userB, "현재 국비과정 뭐시기 저시기");

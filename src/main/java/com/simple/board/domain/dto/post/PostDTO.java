@@ -35,7 +35,7 @@ public class PostDTO {
         this.categoryName = post.getCategory().getName();
         this.userName = post.getUser().getName();
         this.title = post.getTitle();
-        this.content = post.getContent().getText();
+        this.content = post.getContent().getContents();
         this.likes = post.getLikes();
         this.hates = post.getHates();
         this.views = post.getViews();
